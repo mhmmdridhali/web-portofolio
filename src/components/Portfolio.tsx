@@ -62,13 +62,13 @@ export default function Portfolio() {
                         <div className="relative z-10 h-full flex flex-col justify-between">
                             <div>
                                 <span className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 block">
-                                    Work Project
+                                    Team
                                 </span>
                                 <h4 className="text-3xl font-bold mb-4 group-hover:translate-x-2 transition-transform">
                                     Penmadbanjar.com (Madrasah Education Web Portal)
                                 </h4>
                                 <p className="text-gray-300 max-w-xl text-lg mb-6 text-justify">
-                                    Official web portal centralizing information and administrative services for the government education sector.
+                                    Designed and developed the official web portal for the Madrasah Education Section of the Ministry of Religious Affairs in Banjar Regency. Transitioned manual information dissemination and administrative services into a centralized digital system, focusing on maximizing efficiency and minimizing costs.
                                 </p>
                                 {/* Features list for featured project */}
                                 <ul className="mb-6 space-y-2 hidden md:block">
@@ -112,11 +112,11 @@ export default function Portfolio() {
                     >
                         <div>
                             <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 block">
-                                Work Project
+                                Individual
                             </span>
                             <h4 className="text-xl font-bold mb-2">SI-PELITA</h4>
                             <p className="text-gray-600 text-sm mb-4 text-justify">
-                                Centralized web-based helpdesk application for student data correction requests.
+                                Developed a web-based helpdesk application centralizing all student data correction requests into a single portal. Built entirely on the Google Workspace ecosystem using Apps Script, Sheets, and Drive with a serverless architecture to eliminate third-party hosting costs.
                             </p>
                             <div className="flex gap-2 flex-wrap">
                                 {["Google Apps Script", "Bootstrap"].map((tech) => (
@@ -142,11 +142,11 @@ export default function Portfolio() {
                     >
                         <div>
                             <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 block">
-                                Work Project
+                                Individual
                             </span>
                             <h4 className="text-xl font-bold mb-2">SI-PERKAS</h4>
                             <p className="text-gray-600 text-sm mb-4 text-justify">
-                                Integrated digital system for collecting and verifying document files for teacher allowances.
+                                Developed an integrated digital system for collecting and verifying document files for teacher and supervisor professional allowances. Transformed manual data collection into a digital workflow using Apps Script, Sheets, and Drive API, completely eliminating physical storage needs.
                             </p>
                             <div className="flex gap-2 flex-wrap">
                                 {["Google Apps Script", "Chart.js"].map((tech) => (

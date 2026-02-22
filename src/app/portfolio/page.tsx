@@ -20,14 +20,14 @@ const stagger = {
     },
 } as const;
 
-type Category = "All" | "Work Project" | "Vibe Coding";
+type Category = "All" | "Team" | "Individual";
 
 const projects = [
     {
         title: "Penmadbanjar.com (Madrasah Education Web Portal)",
-        category: "Work Project" as const,
+        category: "Team" as const,
         description:
-            "Official web portal centralizing information and administrative services for the government education sector.",
+            "Designed and developed the official web portal for the Madrasah Education Section of the Ministry of Religious Affairs in Banjar Regency. Transitioned manual information dissemination and administrative services into a centralized digital system, focusing on maximizing efficiency and minimizing costs.",
         features: [
             "Responsive public interface",
             "Modern admin panel",
@@ -41,9 +41,9 @@ const projects = [
     },
     {
         title: "EMIS Student Data Automation",
-        category: "Work Project" as const,
+        category: "Individual" as const,
         description:
-            "Automated script extracting and compiling student data from the government EMIS system, cutting processing time from hours to minutes.",
+            "Built an automation script using Google Apps Script to extract student data directly from the Ministry's EMIS system. Replaced manual recapitulation by processing dozens of institutional records simultaneously and automatically organizing them into Google Sheets.",
         features: [
             "Mass extraction",
             "Auto-sheet creation",
@@ -55,9 +55,9 @@ const projects = [
     },
     {
         title: "SI-PELITA (Information and Data Reporting System)",
-        category: "Work Project" as const,
+        category: "Individual" as const,
         description:
-            "Centralized web-based helpdesk application for student data correction requests.",
+            "Developed a web-based helpdesk application centralizing all student data correction requests into a single portal. Built entirely on the Google Workspace ecosystem using Apps Script, Sheets, and Drive with a serverless architecture to eliminate third-party hosting costs.",
         features: [
             "Real-time ticket tracking",
             "Smart revision system",
@@ -70,9 +70,9 @@ const projects = [
     },
     {
         title: "ICU RSISA Leave Monitoring System",
-        category: "Work Project" as const,
+        category: "Individual" as const,
         description:
-            "Real-time web application to manage and monitor employee leave schedules efficiently.",
+            "Created a real-time web application to manage and monitor employee leave schedules. Digitized manual data collection into an automated workflow, preventing staff shortages due to overlapping leave schedules using pure Google Workspace tools.",
         features: [
             "Leave submission form",
             "Dynamic calendar dashboard",
@@ -85,9 +85,9 @@ const projects = [
     },
     {
         title: "Madrasah Profile Data System",
-        category: "Work Project" as const,
+        category: "Individual" as const,
         description:
-            "Web application facilitating rapid profile data updates for Islamic education institutions.",
+            "Built a web application facilitating rapid profile data updates for Islamic education institutions using Google Apps Script and Sheets. Features integrated NPSN search, smart auto-fill, and automated report generation to ensure data integrity without additional server costs.",
         features: [
             "Integrated NPSN search",
             "Smart form auto-fill",
@@ -99,9 +99,9 @@ const projects = [
     },
     {
         title: "SI-PERKAS (Teacher Allowance Filing System)",
-        category: "Work Project" as const,
+        category: "Individual" as const,
         description:
-            "Integrated digital system for collecting and verifying document files for teacher and supervisor allowances.",
+            "Developed an integrated digital system for collecting and verifying document files for teacher and supervisor professional allowances. Transformed manual data collection into a digital workflow using Apps Script, Sheets, and Drive API, completely eliminating physical storage needs.",
         features: [
             "10MB PDF validation",
             "Admin dashboard with caching",
@@ -114,7 +114,7 @@ const projects = [
     },
 ];
 
-const categories: Category[] = ["All", "Work Project", "Vibe Coding"];
+const categories: Category[] = ["All", "Team", "Individual"];
 
 export default function PortfolioPage() {
     const [active, setActive] = useState<Category>("All");

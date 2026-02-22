@@ -20,16 +20,24 @@ export default function Navigation() {
 
     return (
         <nav className="fixed w-full bg-white/70 backdrop-blur-md z-50 border-b border-gray-200">
-            <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
                 <Link href="/" className="flex items-center">
-                    <Image
-                        src="/Logo MAR.png"
-                        alt="MAR."
-                        width={40}
-                        height={40}
-                        priority
-                        className="rounded-sm"
-                    />
+                    <motion.div
+                        whileHover={{
+                            scale: 1.05,
+                            rotate: 5,
+                            filter: "drop-shadow(0px 5px 15px rgba(0,0,0,0.2))",
+                        }}
+                        whileTap={{ scale: 0.9 }}
+                    >
+                        <Image
+                            src="/Logo MAR.png"
+                            alt="MAR."
+                            width={40}
+                            height={40}
+                            priority
+                        />
+                    </motion.div>
                 </Link>
 
                 {/* Desktop Navigation */}
@@ -98,7 +106,7 @@ export default function Navigation() {
                         exit={{ opacity: 0, height: 0 }}
                         className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 overflow-hidden"
                     >
-                        <div className="px-6 py-4 flex flex-col gap-4">
+                        <div className="px-4 py-4 flex flex-col gap-4">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.href}

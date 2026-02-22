@@ -57,7 +57,7 @@ const staggerContainer = {
 
 export default function Experience() {
     return (
-        <section className="py-24 px-6 max-w-4xl mx-auto">
+        <section className="py-24 px-4 md:px-6 max-w-4xl mx-auto">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -93,11 +93,12 @@ export default function Experience() {
                             className={`absolute w-5 h-5 ${exp.isCurrent ? "bg-black shadow-md" : "bg-gray-300"
                                 } rounded-full -left-[11px] top-1.5 border-4 border-white`}
                         ></div>
-                        <div
+                        <motion.div
+                            whileHover={{ scale: 1.02, y: -5 }}
                             className={`${exp.isCurrent
                                 ? "bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl"
                                 : "bg-white/50 p-8 rounded-2xl border border-gray-200 hover:bg-white hover:shadow-lg"
-                                } hover:-translate-y-1 transition-all duration-300 group`}
+                                } transition-all duration-300 group`}
                         >
                             {exp.isCurrent ? (
                                 <span className="inline-block mb-3 text-xs font-bold text-white bg-black px-3 py-1 rounded-full">
@@ -112,10 +113,10 @@ export default function Experience() {
                                 {exp.title}
                             </h4>
                             <p className="text-gray-500 font-medium mb-4">{exp.org}</p>
-                            <p className="text-gray-600 leading-relaxed">
+                            <p className="text-gray-600 leading-relaxed text-justify">
                                 {exp.description}
                             </p>
-                        </div>
+                        </motion.div>
                     </motion.div>
                 ))}
             </motion.div>

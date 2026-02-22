@@ -128,6 +128,7 @@ export default function AboutPage() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
                     variants={stagger}
+                    whileHover={{ scale: 1.02, y: -5, boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)" }}
                     className="bg-white/60 backdrop-blur-xl border border-white/40 p-10 md:p-16 rounded-[3rem] shadow-xl"
                 >
                     <motion.h2
@@ -142,7 +143,7 @@ export default function AboutPage() {
                     ></motion.div>
                     <div className="grid md:grid-cols-2 gap-12 text-lg text-gray-600 leading-relaxed">
                         <motion.div variants={fadeUp} className="space-y-6">
-                            <p>
+                            <p className="text-justify">
                                 I studied{" "}
                                 <span className="font-semibold text-black">
                                     Mathematics Education
@@ -156,7 +157,7 @@ export default function AboutPage() {
                                 simple, manageable steps. That shift in thinking is what
                                 eventually led me into the world of data and technology.
                             </p>
-                            <p>
+                            <p className="text-justify">
                                 Right now, I work as a{" "}
                                 <span className="font-semibold text-black">
                                     Statistician
@@ -176,7 +177,7 @@ export default function AboutPage() {
                             </p>
                         </motion.div>
                         <motion.div variants={fadeUp} className="space-y-6">
-                            <p>
+                            <p className="text-justify">
                                 Outside of work, I enjoy writing on{" "}
                                 <span className="font-semibold text-black">Medium</span>.
                                 It&apos;s my way of reflecting on things — sometimes about
@@ -185,7 +186,7 @@ export default function AboutPage() {
                                 learned along the way. It&apos;s like a quiet corner where
                                 I can think out loud.
                             </p>
-                            <p>
+                            <p className="text-justify">
                                 My philosophy is simple:{" "}
                                 <span className="italic font-medium text-black">
                                     &quot;Solving problems with maximum efficiency and minimal
@@ -207,6 +208,7 @@ export default function AboutPage() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
                     variants={stagger}
+                    whileHover={{ scale: 1.02, y: -5, boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.4)" }}
                     className="bg-gradient-to-br from-gray-900 to-black text-white p-10 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden"
                 >
                     <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
@@ -228,11 +230,11 @@ export default function AboutPage() {
                         </motion.h3>
                         <motion.p
                             variants={fadeUp}
-                            className="text-xl text-gray-300 mb-1"
+                            className="text-xl text-gray-300 mb-1 text-justify"
                         >
                             {education.university}
                         </motion.p>
-                        <motion.p variants={fadeUp} className="text-gray-500 mb-8">
+                        <motion.p variants={fadeUp} className="text-gray-500 mb-8 text-justify">
                             {education.location} · {education.period}
                         </motion.p>
                         <motion.div
@@ -246,7 +248,7 @@ export default function AboutPage() {
                                     className="flex items-start gap-3 bg-white/5 backdrop-blur-sm px-5 py-4 rounded-2xl border border-white/10"
                                 >
                                     <span className="text-white/50 mt-0.5">✦</span>
-                                    <span className="text-gray-300 text-sm leading-relaxed">
+                                    <span className="text-gray-300 text-sm leading-relaxed text-justify">
                                         {item}
                                     </span>
                                 </motion.div>

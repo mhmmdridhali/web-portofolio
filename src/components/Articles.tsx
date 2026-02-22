@@ -42,8 +42,9 @@ const CARD_GAP = 24;
 /* ─── Article Card ─── */
 function ArticleCard({ article }: { article: MediumArticle }) {
     return (
-        <a
+        <motion.a
             href={article.link}
+            whileHover={{ scale: 1.02, y: -5 }}
             target="_blank"
             rel="noopener noreferrer"
             className="group flex flex-col cursor-pointer bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex-shrink-0"
@@ -75,7 +76,7 @@ function ArticleCard({ article }: { article: MediumArticle }) {
                     )}
                 </div>
             </div>
-        </a>
+        </motion.a>
     );
 }
 
@@ -162,8 +163,8 @@ export default function Articles() {
         fetch("/api/medium")
             .then((res) => res.json())
             .then((data) => {
-                if (data.status === "ok" && data.items) {
-                    const mapped: MediumArticle[] = data.items
+                if (data.status === "ok" && data.recent) {
+                    const mapped: MediumArticle[] = data.recent
                         .slice(0, 8)
                         .map(
                             (item: {
@@ -200,7 +201,7 @@ export default function Articles() {
     }, []);
 
     return (
-        <section className="py-24 px-6 max-w-6xl mx-auto overflow-hidden">
+        <section className="py-24 px-4 md:px-6 max-w-6xl mx-auto overflow-hidden">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -212,7 +213,7 @@ export default function Articles() {
                     <h3 className="text-3xl font-bold tracking-tight">
                         Medium Articles
                     </h3>
-                    <p className="text-gray-500 mt-2 max-w-xl">
+                    <p className="text-gray-500 mt-2 max-w-xl text-justify">
                         A quiet corner for my thoughts, where complaints, memories, and
                         random musings find their voice in words.
                     </p>
@@ -248,7 +249,7 @@ export default function Articles() {
                     <h4 className="text-xl font-bold mb-3">
                         Read my articles on Medium
                     </h4>
-                    <p className="text-gray-500 max-w-md mx-auto mb-6">
+                    <p className="text-gray-500 max-w-md mx-auto mb-6 text-justify">
                         Visit my Medium profile to explore insights on data,
                         automation, and efficiency.
                     </p>

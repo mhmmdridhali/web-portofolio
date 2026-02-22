@@ -32,21 +32,22 @@ const techStack = [
 
 export default function About() {
     return (
-        <section className="py-24 px-6 relative">
+        <section className="py-24 px-4 md:px-6 relative">
             {/* Main About Card */}
             <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
                 variants={staggerContainer}
-                className="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 bg-white/60 backdrop-blur-xl border border-white/40 p-10 md:p-16 rounded-[3rem] shadow-xl"
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="max-w-6xl mx-auto grid md:grid-cols-12 gap-12 bg-white/60 backdrop-blur-xl border border-white/40 p-8 md:p-16 rounded-[3rem] shadow-xl"
             >
                 <motion.div variants={fadeUp} className="md:col-span-4">
                     <h3 className="text-3xl font-bold tracking-tight">About Me</h3>
                     <div className="w-12 h-1 bg-black mt-6"></div>
                 </motion.div>
                 <div className="md:col-span-8 text-lg text-gray-600 leading-relaxed space-y-6">
-                    <motion.p variants={fadeUp}>
+                    <motion.p variants={fadeUp} className="text-justify">
                         I studied{" "}
                         <span className="font-semibold text-black">
                             Mathematics Education
@@ -58,7 +59,7 @@ export default function About() {
                         . That background taught me how to think logically and break
                         down complex problems into simple steps.
                     </motion.p>
-                    <motion.p variants={fadeUp}>
+                    <motion.p variants={fadeUp} className="text-justify">
                         Right now, I work as a{" "}
                         <span className="font-semibold text-black">Statistician</span>{" "}
                         in the{" "}
@@ -73,7 +74,7 @@ export default function About() {
                         that automate repetitive tasks, so people can focus on what
                         actually matters.
                     </motion.p>
-                    <motion.p variants={fadeUp}>
+                    <motion.p variants={fadeUp} className="text-justify">
                         Outside of work, I enjoy writing on{" "}
                         <span className="font-semibold text-black">Medium</span>.
                         It&apos;s my way of reflecting on things — sometimes about tech,

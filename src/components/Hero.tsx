@@ -63,7 +63,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="min-h-screen flex flex-col justify-center px-6 pt-24 max-w-6xl mx-auto overflow-hidden">
+        <section className="min-h-screen flex flex-col justify-center px-4 md:px-6 pt-24 max-w-6xl mx-auto overflow-hidden">
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 {/* Text Content */}
                 <motion.div
@@ -72,14 +72,9 @@ export default function Hero() {
                     initial="hidden"
                     animate="visible"
                 >
-                    {/* Role Badge — continuous float */}
+                    {/* Role Badge — Framer Motion hover */}
                     <motion.div
-                        animate={{ y: [-5, 5, -5] }}
-                        transition={{
-                            repeat: Infinity,
-                            duration: 4,
-                            ease: "easeInOut",
-                        }}
+                        whileHover={{ scale: 1.02, y: -5 }}
                     >
                         <motion.div
                             variants={fadeUpVariants}
@@ -98,15 +93,15 @@ export default function Hero() {
                             duration: 4,
                             ease: "easeInOut",
                         }}
-                        className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight"
+                        className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight"
                     >
                         Muhammad <br />
                         <span className="text-gray-400">Ali Ridho</span>
                     </motion.h1>
 
-                    <motion.blockquote variants={fadeUpVariants} className="my-8 h-20 md:h-16">
+                    <motion.blockquote variants={fadeUpVariants} className="my-8 h-24 md:h-16">
                         <p
-                            className={`text-xl md:text-2xl font-medium italic text-gray-700 leading-relaxed border-l-4 border-black pl-10${!typingDone ? " cursor" : ""
+                            className={`text-lg md:text-xl lg:text-2xl font-medium italic text-gray-700 leading-relaxed border-l-4 border-black pl-6 md:pl-10 text-justify${!typingDone ? " cursor" : ""
                                 }`}
                         >
                             {displayedText}

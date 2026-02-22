@@ -50,7 +50,10 @@ export default function Portfolio() {
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
                     {/* Main Featured Project: Penmadbanjar.com */}
-                    <motion.div
+                    <motion.a
+                        href="https://penmadbanjar.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         variants={fadeUp}
                         whileHover={{ scale: 1.02, y: -5 }}
                         className="md:col-span-2 md:row-span-1 lg:row-span-2 bg-gradient-to-br from-gray-900 to-black text-white p-8 md:p-10 rounded-[2rem] relative overflow-hidden group cursor-pointer shadow-2xl hover:shadow-black/40 transition-shadow duration-300 flex flex-col justify-between"
@@ -96,10 +99,13 @@ export default function Portfolio() {
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </motion.a>
 
                     {/* Secondary Project 1: SI-PELITA */}
-                    <motion.div
+                    <motion.a
+                        href="https://s.id/SIPELITA"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         variants={fadeUp}
                         whileHover={{ scale: 1.02, y: -5 }}
                         className="md:col-span-1 md:row-span-1 bg-white p-8 rounded-[2rem] border border-gray-200 group cursor-pointer hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between"
@@ -123,10 +129,13 @@ export default function Portfolio() {
                         <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors mt-6">
                             ↗
                         </div>
-                    </motion.div>
+                    </motion.a>
 
                     {/* Secondary Project 2: SI-PERKAS */}
-                    <motion.div
+                    <motion.a
+                        href="https://s.id/SIPERKAS"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         variants={fadeUp}
                         whileHover={{ scale: 1.02, y: -5 }}
                         className="md:col-span-1 md:row-span-1 bg-gray-100 p-8 rounded-[2rem] group cursor-pointer hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between"
@@ -150,7 +159,7 @@ export default function Portfolio() {
                         <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center group-hover:bg-black group-hover:text-white group-hover:border-black transition-colors mt-6">
                             ↗
                         </div>
-                    </motion.div>
+                    </motion.a>
                 </motion.div>
 
                 {/* View All Projects Button */}

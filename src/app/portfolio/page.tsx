@@ -37,6 +37,7 @@ const projects = [
             "Integrated text editor",
         ],
         tech: ["Next.js 14", "TypeScript", "Tailwind CSS"],
+        liveUrl: "https://penmadbanjar.com",
     },
     {
         title: "EMIS Student Data Automation",
@@ -50,6 +51,7 @@ const projects = [
             "Full-page server navigation",
         ],
         tech: ["Google Apps Script", "Google Sheets"],
+        liveUrl: "",
     },
     {
         title: "SI-PELITA (Information and Data Reporting System)",
@@ -64,6 +66,7 @@ const projects = [
             "Duplication prevention",
         ],
         tech: ["Google Apps Script", "Google Sheets", "HTML/CSS", "Bootstrap"],
+        liveUrl: "https://s.id/SIPELITA",
     },
     {
         title: "ICU RSISA Leave Monitoring System",
@@ -78,6 +81,7 @@ const projects = [
             "Activity logging",
         ],
         tech: ["Google Apps Script", "Google Sheets", "HTML/CSS/JS", "SweetAlert2"],
+        liveUrl: "https://s.id/Cuti2026",
     },
     {
         title: "Madrasah Profile Data System",
@@ -91,6 +95,7 @@ const projects = [
             "Automated report generator",
         ],
         tech: ["Google Apps Script", "Google Sheets", "Bootstrap 5"],
+        liveUrl: "https://s.id/ProfilLembagaKabBanjar",
     },
     {
         title: "SI-PERKAS (Teacher Allowance Filing System)",
@@ -105,6 +110,7 @@ const projects = [
             "Excel export",
         ],
         tech: ["Google Apps Script", "Google Sheets", "Google Drive API", "Bootstrap 5", "Chart.js"],
+        liveUrl: "https://s.id/SIPERKAS",
     },
 ];
 
@@ -188,16 +194,16 @@ export default function PortfolioPage() {
                                     variants={fadeUp}
                                     layout
                                     className={`group cursor-pointer rounded-[2rem] overflow-hidden transition-all duration-300 hover:-translate-y-2 flex flex-col ${isDark
-                                            ? "bg-gradient-to-br from-gray-900 to-black text-white shadow-xl hover:shadow-black/40"
-                                            : "bg-white/60 backdrop-blur-xl border border-white/40 shadow-lg hover:shadow-xl text-gray-900"
+                                        ? "bg-gradient-to-br from-gray-900 to-black text-white shadow-xl hover:shadow-black/40"
+                                        : "bg-white/60 backdrop-blur-xl border border-white/40 shadow-lg hover:shadow-xl text-gray-900"
                                         }`}
                                 >
                                     {/* Project Visual Area */}
                                     <div className="relative overflow-hidden h-32 md:h-40 flex-shrink-0">
                                         <div
                                             className={`absolute inset-0 ${isDark
-                                                    ? "bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent"
-                                                    : "bg-gray-100"
+                                                ? "bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent"
+                                                : "bg-gray-100"
                                                 }`}
                                         ></div>
                                         <div className="absolute inset-0 flex items-center justify-center">
@@ -211,8 +217,8 @@ export default function PortfolioPage() {
                                         {/* Category Badge */}
                                         <span
                                             className={`absolute top-4 left-4 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full ${isDark
-                                                    ? "bg-white/10 text-gray-300 backdrop-blur-sm"
-                                                    : "bg-white/80 text-gray-600 shadow-sm"
+                                                ? "bg-white/10 text-gray-300 backdrop-blur-sm"
+                                                : "bg-white/80 text-gray-600 shadow-sm"
                                                 }`}
                                         >
                                             {project.category}
@@ -254,8 +260,8 @@ export default function PortfolioPage() {
                                                 <span
                                                     key={t}
                                                     className={`text-xs font-medium px-3 py-1.5 rounded-full ${isDark
-                                                            ? "bg-white/10 text-gray-300 border border-white/10"
-                                                            : "bg-gray-100 text-gray-600"
+                                                        ? "bg-white/10 text-gray-300 border border-white/10"
+                                                        : "bg-gray-100 text-gray-600"
                                                         }`}
                                                 >
                                                     {t}
@@ -267,10 +273,19 @@ export default function PortfolioPage() {
                                             className={`flex items-center gap-2 text-sm font-bold uppercase tracking-wider mt-auto ${isDark ? "text-white/70" : "text-black"
                                                 }`}
                                         >
-                                            View Details
-                                            <span className="group-hover:translate-x-2 transition-transform">
-                                                →
-                                            </span>
+                                            {project.liveUrl && (
+                                                <a
+                                                    href={project.liveUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                                                >
+                                                    Visit Project
+                                                    <span className="group-hover:translate-x-2 transition-transform">
+                                                        →
+                                                    </span>
+                                                </a>
+                                            )}
                                         </div>
                                     </div>
                                 </motion.div>

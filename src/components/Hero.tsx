@@ -101,7 +101,7 @@ export default function Hero() {
 
                     <motion.blockquote variants={fadeUpVariants} className="my-8 h-24 md:h-16">
                         <p
-                            className={`text-lg md:text-xl lg:text-2xl font-medium italic text-gray-700 leading-relaxed border-l-4 border-black pl-6 md:pl-10 text-justify${!typingDone ? " cursor" : ""
+                            className={`text-lg md:text-xl lg:text-2xl font-medium italic text-gray-700 leading-relaxed border-l-4 border-black pl-6 md:pl-10${!typingDone ? " cursor" : ""
                                 }`}
                         >
                             {displayedText}

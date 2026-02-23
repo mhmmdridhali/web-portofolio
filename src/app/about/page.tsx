@@ -75,6 +75,37 @@ const values = [
     },
 ];
 
+interface TraitBarProps {
+    leftLabel: string;
+    rightLabel: string;
+    percent: number;
+    color: string;
+}
+
+const TraitBar = ({ leftLabel, rightLabel, percent, color }: TraitBarProps) => {
+    return (
+        <motion.div variants={fadeUp} className="w-full">
+            <div className="flex justify-between text-xs font-bold mb-1.5 tracking-wider uppercase">
+                <span className={percent >= 50 ? "text-black" : "text-gray-400 font-normal"}>{leftLabel}</span>
+                <span className={percent < 50 ? "text-black" : "text-gray-400 font-normal"}>{rightLabel}</span>
+            </div>
+            <div className="relative h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${percent}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, ease: "circOut" }}
+                    className={`absolute left-0 top-0 h-full ${color}`}
+                ></motion.div>
+            </div>
+            <div className="flex justify-between text-[10px] mt-1 font-mono text-gray-400">
+                <span className={percent >= 50 ? "text-gray-600 font-bold" : ""}>{percent}%</span>
+                <span className={percent < 50 ? "text-gray-600 font-bold" : ""}>{100 - percent}%</span>
+            </div>
+        </motion.div>
+    );
+};
+
 export default function AboutPage() {
     return (
         <div className="pt-28 pb-24">
@@ -195,6 +226,83 @@ export default function AboutPage() {
                                 Every project I take on reflects this — finding the most
                                 elegant way to create the most value, without overcomplicating
                                 things.
+                            </p>
+                        </motion.div>
+                    </div>
+                </motion.div>
+            </section>
+
+            {/* MBTI Section */}
+            <section className="max-w-6xl mx-auto px-6 mb-20">
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-50px" }}
+                    variants={stagger}
+                    whileHover={{ scale: 1.01, y: -5, boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)" }}
+                    className="bg-white/60 backdrop-blur-xl border border-white/40 p-10 md:p-16 rounded-[3rem] shadow-xl"
+                >
+                    <motion.h2
+                        variants={fadeUp}
+                        className="text-3xl font-bold tracking-tight mb-3"
+                    >
+                        Personality Profile
+                    </motion.h2>
+                    <motion.div
+                        variants={fadeUp}
+                        className="w-12 h-1 bg-black mb-12"
+                    ></motion.div>
+
+                    {/* Character and Text */}
+                    <div className="grid md:grid-cols-12 gap-12 mb-16">
+                        <div className="md:col-span-8 text-lg text-gray-600 leading-relaxed space-y-6 flex flex-col justify-center order-last md:order-first">
+                            <motion.div variants={fadeUp}>
+                                <h4 className="text-2xl font-bold text-black mb-4">ISTJ-A <span className="text-gray-400 font-normal">| The Logistician</span></h4>
+                                <p className="text-justify mb-4">
+                                    If there&apos;s one thing I love, it&apos;s taking a chaotic, messy problem and organizing it into a clean, logical system. I thrive on order and getting things done efficiently — basically, I&apos;m the person who actually enjoys building complex spreadsheets and automated workflows.
+                                </p>
+                                <p className="text-justify">
+                                    While I might seem a bit serious at first glance, I&apos;m usually just internally calculating the most optimal way to approach whatever is in front of me. I believe in consistency, reliability, and letting the data speak for itself.
+                                </p>
+                            </motion.div>
+                        </div>
+                        <motion.div variants={fadeUp} className="md:col-span-4 flex flex-col items-center justify-center order-first md:order-last">
+                            <motion.img
+                                src="/mbti_character.png"
+                                alt="ISTJ-A Character"
+                                className="w-48 md:w-64 h-auto drop-shadow-2xl cursor-pointer"
+                                animate={{ y: [0, -15, 0] }}
+                                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                                whileHover={{ scale: 1.05, rotate: 3 }}
+                                whileTap={{ scale: 0.95 }}
+                            />
+                        </motion.div>
+                    </div>
+
+                    {/* Traits Bars */}
+                    <motion.div variants={fadeUp} className="mb-16">
+                        <h3 className="text-xl font-bold text-black mb-8 border-l-4 border-black pl-4">Personality Traits</h3>
+                        <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
+                            <TraitBar leftLabel="Introverted" rightLabel="Extroverted" percent={85} color="bg-gray-800" />
+                            <TraitBar leftLabel="Sensing" rightLabel="Intuition" percent={75} color="bg-gray-700" />
+                            <TraitBar leftLabel="Thinking" rightLabel="Feeling" percent={80} color="bg-gray-600" />
+                            <TraitBar leftLabel="Judging" rightLabel="Perceiving" percent={90} color="bg-gray-500" />
+                            <TraitBar leftLabel="Assertive" rightLabel="Turbulent" percent={70} color="bg-gray-400" />
+                        </div>
+                    </motion.div>
+
+                    {/* Strengths Grid */}
+                    <div className="grid md:grid-cols-2 gap-12 text-lg text-gray-600 leading-relaxed">
+                        <motion.div variants={fadeUp} className="space-y-4">
+                            <h4 className="text-xl font-bold text-black border-l-4 border-black pl-4">Career Strengths</h4>
+                            <p className="text-justify">
+                                Think of me as the Marie Kondo of your workspace. If a project is a tangled mess of spaghetti data and chaotic workflows, I&apos;m the one who will happily sit down, untangle it, and organize it into beautifully structured, automated systems. I get things done, and I like doing them right the first time.
+                            </p>
+                        </motion.div>
+                        <motion.div variants={fadeUp} className="space-y-4">
+                            <h4 className="text-xl font-bold text-black border-l-4 border-black pl-4">Personal Growth</h4>
+                            <p className="text-justify">
+                                I&apos;ll admit, my default setting is &quot;if it ain&apos;t broke, don&apos;t fix it... just optimize it a little.&quot; I love a good proven method! But working in tech means I&apos;m constantly learning to embrace the chaos (just a little bit!) and balance my love for rigid structure with the flexibility to try new, slightly terrifying things.
                             </p>
                         </motion.div>
                     </div>

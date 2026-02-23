@@ -85,6 +85,41 @@ export default function About() {
                 </div>
             </motion.div>
 
+            {/* MBTI Section */}
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={staggerContainer}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="max-w-6xl mx-auto mt-12 grid md:grid-cols-12 gap-12 bg-white/60 backdrop-blur-xl border border-white/40 p-8 md:p-16 rounded-[3rem] shadow-xl"
+            >
+                <div className="md:col-span-8 text-lg text-gray-600 leading-relaxed space-y-6 flex flex-col justify-center order-last md:order-first">
+                    <motion.div variants={fadeUp}>
+                        <h4 className="text-2xl font-bold text-black mb-4">ISTJ-A <span className="text-gray-400 font-normal">| The Logistician</span></h4>
+                        <p className="text-justify mb-4">
+                            If there&apos;s one thing I love, it&apos;s taking a chaotic, messy problem and organizing it into a clean, logical system. I thrive on order and getting things done efficiently — basically, I&apos;m the person who actually enjoys building complex spreadsheets and automated workflows.
+                        </p>
+                        <p className="text-justify">
+                            While I might seem a bit serious at first glance, I&apos;m usually just internally calculating the most optimal way to approach whatever is in front of me. I believe in consistency, reliability, and letting the data speak for itself.
+                        </p>
+                    </motion.div>
+                </div>
+                <motion.div variants={fadeUp} className="md:col-span-4 flex flex-col items-center justify-center order-first md:order-last">
+                    <h3 className="text-3xl font-bold tracking-tight md:hidden mb-6 self-start">My Personality</h3>
+                    <div className="w-12 h-1 bg-black mb-8 md:hidden self-start"></div>
+                    <motion.img
+                        src="/mbti_character.png"
+                        alt="ISTJ-A Character"
+                        className="w-48 md:w-64 h-auto drop-shadow-2xl cursor-pointer"
+                        animate={{ y: [0, -15, 0] }}
+                        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                        whileHover={{ scale: 1.05, rotate: 3 }}
+                        whileTap={{ scale: 0.95 }}
+                    />
+                </motion.div>
+            </motion.div>
+
             {/* Tech Stack Section */}
             <motion.div
                 initial="hidden"

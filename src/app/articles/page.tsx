@@ -62,7 +62,8 @@ function ArticleCard({ article, isLibrary = false }: { article: MediumArticle; i
                     <img
                         src={article.thumbnail}
                         alt={article.title}
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        className={`absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ${!isLibrary ? "grayscale group-hover:grayscale-0" : ""
+                            }`}
                     />
                 ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-100 flex items-center justify-center">

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { IconCloud } from "@/components/ui/icon-cloud";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -21,13 +22,13 @@ const staggerContainer = {
 } as const;
 
 const techStack = [
-    { name: "Google Apps Script", icon: "⚡" },
-    { name: "Looker Studio", icon: "📊" },
-    { name: "n8n", icon: "🔄" },
-    { name: "MySQL", icon: "🗄️" },
-    { name: "Google Workspace", icon: "☁️" },
-    { name: "Next JS", icon: "▲" },
-    { name: "Tailwind CSS", icon: "🎨" },
+    { name: "Google Apps Script", slug: "google" },
+    { name: "Looker Studio", slug: "looker" },
+    { name: "n8n", slug: "n8n" },
+    { name: "MySQL", slug: "mysql" },
+    { name: "Google Workspace", slug: "googledrive" },
+    { name: "Next JS", slug: "nextdotjs" },
+    { name: "Tailwind CSS", slug: "tailwindcss" },
 ];
 
 export default function About() {
@@ -130,25 +131,29 @@ export default function About() {
             >
                 <motion.h3
                     variants={fadeUp}
-                    className="text-3xl font-bold tracking-tight mb-3"
+                    className="text-3xl font-bold tracking-tight mb-3 text-center md:text-left"
                 >
                     Tech Stack
                 </motion.h3>
                 <motion.div
                     variants={fadeUp}
-                    className="w-12 h-1 bg-black mb-10"
+                    className="w-12 h-1 bg-black mb-10 mx-auto md:mx-0"
                 ></motion.div>
+
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
                     {techStack.map((tool) => (
                         <motion.div
                             key={tool.name}
                             variants={fadeUp}
-                            className="bg-white/60 backdrop-blur-xl border border-white/40 px-5 py-5 rounded-2xl text-center hover:bg-black hover:text-white transition-all duration-300 cursor-default shadow-sm group"
+                            className="bg-white/60 backdrop-blur-xl border border-white/40 px-5 py-5 rounded-2xl text-center hover:bg-black hover:text-white transition-all duration-300 cursor-default shadow-sm group flex flex-col items-center justify-center gap-3 relative overflow-hidden"
                         >
-                            <span className="text-2xl block mb-2 group-hover:scale-110 transition-transform duration-300">
-                                {tool.icon}
-                            </span>
-                            <span className="text-xs font-semibold text-gray-700 group-hover:text-white transition-colors">
+                            <div className="w-16 h-16 group-hover:scale-110 group-hover:invert transition-all duration-300 flex items-center justify-center pointer-events-auto">
+                                <IconCloud
+                                    images={[`https://cdn.simpleicons.org/${tool.slug}/black`]}
+                                    className="w-full h-full object-contain cursor-pointer"
+                                />
+                            </div>
+                            <span className="text-xs font-semibold text-gray-700 group-hover:text-white transition-colors relative z-10">
                                 {tool.name}
                             </span>
                         </motion.div>

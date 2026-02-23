@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { Particles } from "@/components/AerosolBackground";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,9 +33,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${inter.variable} font-[family-name:var(--font-inter)] antialiased selection:bg-black selection:text-white min-h-screen`}
+        className={`${inter.variable} font-[family-name:var(--font-inter)] antialiased selection:bg-black selection:text-white min-h-screen relative`}
         suppressHydrationWarning
       >
+        <Particles
+          className="fixed inset-0 z-[-1]"
+          quantity={80}
+          ease={80}
+          color="#000000"
+          refresh
+        />
         <Navigation />
         <main>{children}</main>
         <Footer />

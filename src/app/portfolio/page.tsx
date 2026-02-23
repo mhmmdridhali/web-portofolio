@@ -273,7 +273,7 @@ export default function PortfolioPage() {
                                             className={`flex items-center gap-2 text-sm font-bold uppercase tracking-wider mt-auto ${isDark ? "text-white/70" : "text-black"
                                                 }`}
                                         >
-                                            {project.liveUrl && (
+                                            {project.liveUrl ? (
                                                 <a
                                                     href={project.liveUrl}
                                                     target="_blank"
@@ -285,7 +285,7 @@ export default function PortfolioPage() {
                                                         →
                                                     </span>
                                                 </a>
-                                            )}
+                                            ) : null}
                                         </div>
                                     </div>
                                 </motion.div>

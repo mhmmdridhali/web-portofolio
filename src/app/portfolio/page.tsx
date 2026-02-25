@@ -40,6 +40,20 @@ const projects = [
         liveUrl: "https://penmadbanjar.com",
     },
     {
+        title: "Taskly (Personal To-Do List App)",
+        category: "Individual" as const,
+        description:
+            "A full-stack, interactive, and secure personal to-do list app built with a playful Neobrutalism design. Features real-time task management, a live user counter, and Google OAuth with PKCE flow for enhanced security.",
+        features: [
+            "Google OAuth & Supabase SSR Auth",
+            "Real-time task management (List & Kanban)",
+            "Live user presence counter",
+            "Playful Neobrutalism UI with toast notifications",
+        ],
+        tech: ["Next.js", "Supabase", "Tailwind CSS"],
+        liveUrl: "https://taskly.muhammadaliridho.my.id",
+    },
+    {
         title: "EMIS Student Data Automation",
         category: "Individual" as const,
         description:

@@ -131,25 +131,25 @@ export default function Portfolio() {
                         </div>
                     </motion.a>
 
-                    {/* Secondary Project 2: SI-PERKAS */}
+                    {/* Secondary Project 2: Taskly */}
                     <motion.a
-                        href="https://s.id/SIPERKAS"
+                        href="https://taskly.muhammadaliridho.my.id"
                         target="_blank"
                         rel="noopener noreferrer"
                         variants={fadeUp}
                         whileHover={{ scale: 1.02, y: -5 }}
-                        className="md:col-span-1 md:row-span-1 bg-gray-100 p-8 rounded-[2rem] group cursor-pointer hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between"
+                        className="md:col-span-1 md:row-span-1 bg-white p-8 rounded-[2rem] border border-gray-200 group cursor-pointer hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between"
                     >
                         <div>
                             <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 block">
                                 Individual
                             </span>
-                            <h4 className="text-xl font-bold mb-2">SI-PERKAS</h4>
+                            <h4 className="text-xl font-bold mb-2">Taskly</h4>
                             <p className="text-gray-600 text-sm mb-4 text-justify">
-                                Developed an integrated digital system for collecting and verifying document files for teacher and supervisor professional allowances. Transformed manual data collection into a digital workflow using Apps Script, Sheets, and Drive API, completely eliminating physical storage needs.
+                                A full-stack, interactive, and secure personal to-do list app built with a playful Neobrutalism design. Features real-time task management, a live user counter, and Google OAuth with PKCE flow.
                             </p>
                             <div className="flex gap-2 flex-wrap">
-                                {["Google Apps Script", "Chart.js"].map((tech) => (
+                                {["Next.js", "Supabase", "Tailwind CSS"].map((tech) => (
                                     <span key={tech} className="text-xs font-medium px-2 py-1 flex-shrink-0 rounded-full bg-white text-gray-600 border border-gray-200">
                                         {tech}
                                     </span>

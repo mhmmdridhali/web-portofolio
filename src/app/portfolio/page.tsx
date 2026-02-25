@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -38,6 +39,7 @@ const projects = [
         ],
         tech: ["Next.js 14", "TypeScript", "Tailwind CSS"],
         liveUrl: "https://penmadbanjar.com",
+        image: "/projects/penmadbanjar-thumb.png",
     },
     {
         title: "Taskly (Personal To-Do List App)",
@@ -52,6 +54,7 @@ const projects = [
         ],
         tech: ["Next.js", "Supabase", "Tailwind CSS"],
         liveUrl: "https://taskly.muhammadaliridho.my.id",
+        image: "/projects/taskly-thumb.png",
     },
     {
         title: "EMIS Student Data Automation",
@@ -66,6 +69,7 @@ const projects = [
         ],
         tech: ["Google Apps Script", "Google Sheets"],
         liveUrl: "",
+        image: "/projects/emis-thumb.png",
     },
     {
         title: "SI-PELITA (Information and Data Reporting System)",
@@ -81,6 +85,7 @@ const projects = [
         ],
         tech: ["Google Apps Script", "Google Sheets", "HTML/CSS", "Bootstrap"],
         liveUrl: "https://s.id/SIPELITA",
+        image: "/projects/sipelita-thumb.png",
     },
     {
         title: "ICU RSISA Leave Monitoring System",
@@ -96,6 +101,23 @@ const projects = [
         ],
         tech: ["Google Apps Script", "Google Sheets", "HTML/CSS/JS", "SweetAlert2"],
         liveUrl: "https://s.id/Cuti2026",
+        image: "/projects/cuti-thumb.png",
+    },
+    {
+        title: "Pojok Statistik Madrasah Kab. Banjar",
+        category: "Individual" as const,
+        description:
+            "Developed an interactive digital dashboard replacing static and manual data reports for madrasah education in Banjar Regency. The platform provides transparent, real-time information to the public and stakeholders, enabling faster and more accurate decisions based on current education metrics sourced from the EMIS system.",
+        features: [
+            "Institutional overview across 18 districts",
+            "Personnel & student statistics by gender and status",
+            "Searchable data by madrasah name or NSM code",
+            "Downloadable raw data for offline use",
+            "Accreditation status & curriculum tracking",
+        ],
+        tech: ["Google Looker Studio", "Google Sheets", "Google Connectors", "EMIS Data"],
+        liveUrl: "https://lookerstudio.google.com/u/0/reporting/0ea71311-8249-426c-9d96-067c1c282713/page/YOWYF",
+        image: "/projects/pojokstatistik-thumb.png",
     },
     {
         title: "Madrasah Profile Data System",
@@ -110,6 +132,7 @@ const projects = [
         ],
         tech: ["Google Apps Script", "Google Sheets", "Bootstrap 5"],
         liveUrl: "https://s.id/ProfilLembagaKabBanjar",
+        image: "/projects/profilmadrasah-thumb.png",
     },
     {
         title: "SI-PERKAS (Teacher Allowance Filing System)",
@@ -125,6 +148,7 @@ const projects = [
         ],
         tech: ["Google Apps Script", "Google Sheets", "Google Drive API", "Bootstrap 5", "Chart.js"],
         liveUrl: "https://s.id/SIPERKAS",
+        image: "/projects/siperkas-thumb.png",
     },
 ];
 
@@ -213,25 +237,19 @@ export default function PortfolioPage() {
                                         }`}
                                 >
                                     {/* Project Visual Area */}
-                                    <div className="relative overflow-hidden h-32 md:h-40 flex-shrink-0">
-                                        <div
-                                            className={`absolute inset-0 ${isDark
-                                                ? "bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent"
-                                                : "bg-gray-100"
-                                                }`}
-                                        ></div>
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <span
-                                                className={`text-6xl ${isDark ? "opacity-20" : "opacity-10"
-                                                    } group-hover:scale-125 transition-transform duration-700`}
-                                            >
-                                                {idx === 0 ? "🚀" : idx === 5 ? "📁" : "📊"}
-                                            </span>
-                                        </div>
+                                    <div className="relative overflow-hidden h-48 md:h-56 flex-shrink-0">
+                                        <Image
+                                            src={project.image}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        />
+                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300"></div>
                                         {/* Category Badge */}
                                         <span
                                             className={`absolute top-4 left-4 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full ${isDark
-                                                ? "bg-white/10 text-gray-300 backdrop-blur-sm"
+                                                ? "bg-black text-white border border-white/20"
                                                 : "bg-white/80 text-gray-600 shadow-sm"
                                                 }`}
                                         >

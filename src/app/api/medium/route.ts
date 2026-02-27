@@ -4,6 +4,7 @@ import * as cheerio from "cheerio";
 import RssParser from "rss-parser";
 import { NextResponse } from "next/server";
 
+export const revalidate = 3600; // Cache for 1 hour (ISR)
 interface MediumItem {
     title: string;
     link: string;

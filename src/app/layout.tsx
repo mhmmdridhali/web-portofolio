@@ -12,9 +12,17 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://muhammadaliridho.my.id"),
   title: "Muhammad Ali Ridho | Portfolio",
   description:
     "Portfolio of Muhammad Ali Ridho — Statistician, Tech Enthusiast, and Writer.",
+  openGraph: {
+    title: "Muhammad Ali Ridho | Portfolio",
+    description:
+      "Statistician, Tech Enthusiast, and Writer. Solving problems with maximum efficiency and minimal cost.",
+    type: "website",
+    locale: "en_US",
+  },
   icons: {
     icon: [
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -239,12 +240,9 @@ export default function Portfolio() {
                     </motion.a>
 
                     {/* ============================================= */}
-                    {/* BOTTOM RIGHT: Pojok Statistik (2 cols, horizontal) */}
+                    {/* BOTTOM RIGHT: Inventory & Loan System (2 cols, horizontal) */}
                     {/* ============================================= */}
-                    <motion.a
-                        href="https://lookerstudio.google.com/u/0/reporting/0ea71311-8249-426c-9d96-067c1c282713/page/YOWYF"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <motion.div
                         variants={fadeUp}
                         whileHover={{ scale: 1.02, y: -3 }}
                         className="md:col-span-2 bg-white rounded-3xl border border-neutral-200 group cursor-pointer hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row overflow-hidden relative"
@@ -254,13 +252,13 @@ export default function Portfolio() {
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-2 block">
                                     Individual
                                 </span>
-                                <h4 className="text-lg font-bold mb-1.5 text-black">Pojok Statistik Madrasah</h4>
+                                <h4 className="text-lg font-bold mb-1.5 text-black">Inventory & Loan System</h4>
                                 <p className="text-neutral-500 text-xs leading-relaxed mb-4">
-                                    Interactive data dashboard for Banjar Regency madrasah education statistics. Replaced static reports with real-time public insights powered by EMIS data.
+                                    Centralized web application for RSISA ICU to manage medical equipment circulation. Features real-time tracking, automated lending workflows, and deadline monitoring.
                                 </p>
                             </div>
                             <div className="flex gap-1.5 flex-wrap mt-auto">
-                                {["Looker Studio", "Google Sheets"].map((tech) => (
+                                {["Apps Script", "Tailwind CSS", "Google Sheets"].map((tech) => (
                                     <span key={tech} className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-500">
                                         {tech}
                                     </span>
@@ -269,17 +267,14 @@ export default function Portfolio() {
                         </div>
                         <div className="relative h-48 sm:h-auto sm:w-1/2 flex-shrink-0 border-t sm:border-t-0 sm:border-l border-neutral-200 bg-neutral-50 overflow-hidden flex items-center justify-center">
                             <Image
-                                src="/projects/pojokstatistik-thumb.png"
-                                alt="Pojok Statistik Madrasah Kab. Banjar"
+                                src="/projects/icu-inventory-thumb.png"
+                                alt="Inventory & Loan System RSISA ICU"
                                 fill
                                 className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                                 sizes="(max-width: 768px) 100vw, 40vw"
                             />
-                            <div className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm shadow-md text-black flex items-center justify-center opacity-0 -translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 font-medium">
-                                ↗
-                            </div>
                         </div>
-                    </motion.a>
+                    </motion.div>
                 </motion.div>
 
                 {/* View All Projects Button */}
@@ -290,13 +285,19 @@ export default function Portfolio() {
                     variants={fadeUp}
                     className="mt-10 text-center"
                 >
-                    <a
-                        href="/portfolio"
-                        className="inline-flex items-center gap-2 px-8 py-3 bg-black text-white font-medium rounded-full hover:bg-neutral-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                    <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="inline-block"
                     >
-                        View All Projects
-                        <span>→</span>
-                    </a>
+                        <Link
+                            href="/portfolio"
+                            className="inline-flex items-center gap-2 px-8 py-3 bg-black text-white font-medium rounded-full hover:bg-neutral-800 transition-colors shadow-lg"
+                        >
+                            View All Projects
+                            <span>→</span>
+                        </Link>
+                    </motion.div>
                 </motion.div>
             </div>
         </section >

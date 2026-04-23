@@ -25,6 +25,38 @@ type Category = "All" | "Team" | "Individual";
 
 const projects = [
     {
+        title: "Humas Award Penmad 2026",
+        category: "Individual" as const,
+        description:
+            "Developed a robust, serverless web application to facilitate the Humas Award 2026 for Madrasahs in Banjar Regency. The platform streamlines the submission, tracking, and evaluation of digital publications with real-time analytics and dynamic multi-step forms.",
+        features: [
+            "Real-Time Analytics Dashboard",
+            "Smart Submission Engine",
+            "Advanced Anti-Spam & Data Integrity",
+            "Dynamic Multi-Input Generation",
+            "Seamless Routing",
+        ],
+        tech: ["HTML5/Tailwind/JS", "Chart.js", "Google Apps Script", "Google Sheets"],
+        liveUrl: "",
+        image: "/projects/humasaward-thumb.png",
+    },
+    {
+        title: "Inventory & Loan System RSISA ICU Banjarbaru",
+        category: "Individual" as const,
+        description:
+            "A centralized web application designed to manage the circulation of critical medical equipment within intensive care environments. Provides a transparent, real-time tracking mechanism for high-value assets and automated lending workflows.",
+        features: [
+            "Real-Time Asset Catalog",
+            "Automated Lending Workflow",
+            "Admin Control Center",
+            "Deadline Monitoring Logic",
+            "Institutional Reporting",
+        ],
+        tech: ["Google Apps Script", "Google Sheets", "HTML/JS/Tailwind CSS"],
+        liveUrl: "",
+        image: "/projects/icu-inventory-thumb.png",
+    },
+    {
         title: "Penmadbanjar.com (Madrasah Education Web Portal)",
         category: "Team" as const,
         description:

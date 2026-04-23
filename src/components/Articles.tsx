@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
+import Link from "next/link";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -268,6 +269,29 @@ export default function Articles() {
             {!loading && !error && articles.length > 0 && (
                 <MarqueeTrack articles={articles} />
             )}
+
+            {/* CTA */}
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                className="mt-16 text-center"
+            >
+                <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-block"
+                >
+                    <Link
+                        href="/articles"
+                        className="inline-flex items-center gap-2 px-8 py-3 bg-black text-white font-medium rounded-full hover:bg-neutral-800 transition-colors shadow-lg"
+                    >
+                        Explore All Articles
+                        <span>→</span>
+                    </Link>
+                </motion.div>
+            </motion.div>
         </section>
     );
 }

@@ -242,7 +242,10 @@ export default function Portfolio() {
                     {/* ============================================= */}
                     {/* BOTTOM RIGHT: Inventory & Loan System (2 cols, horizontal) */}
                     {/* ============================================= */}
-                    <motion.div
+                    <motion.a
+                        href="https://script.google.com/macros/s/AKfycbwLjJjFmtVY1TOIjEaTuTlifCXgCq6NwqPALjCSHgvDcrhcv6PFwMJITdginwd-Xfc8/exec"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         variants={fadeUp}
                         whileHover={{ scale: 1.02, y: -3 }}
                         className="md:col-span-2 bg-white rounded-3xl border border-neutral-200 group cursor-pointer hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row overflow-hidden relative"
@@ -273,8 +276,11 @@ export default function Portfolio() {
                                 className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                                 sizes="(max-width: 768px) 100vw, 40vw"
                             />
+                            <div className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm shadow-md text-black flex items-center justify-center opacity-0 -translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 font-medium">
+                                ↗
+                            </div>
                         </div>
-                    </motion.div>
+                    </motion.a>
                 </motion.div>
 
                 {/* View All Projects Button */}

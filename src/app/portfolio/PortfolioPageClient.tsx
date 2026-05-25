@@ -37,7 +37,7 @@ const projects = [
             "Seamless Routing",
         ],
         tech: ["HTML5/Tailwind/JS", "Chart.js", "Google Apps Script", "Google Sheets"],
-        liveUrl: "",
+        liveUrl: "https://script.google.com/macros/s/AKfycbwxZQG-NSWwwy1PMOgBXFeSTumyXBlo79sz_OdS0enRI9_NrjFk1UKZoXG3Bdjo68_B8Q/exec",
         image: "/projects/humasaward-thumb.png",
     },
     {
@@ -53,7 +53,7 @@ const projects = [
             "Institutional Reporting",
         ],
         tech: ["Google Apps Script", "Google Sheets", "HTML/JS/Tailwind CSS"],
-        liveUrl: "",
+        liveUrl: "https://script.google.com/macros/s/AKfycbwLjJjFmtVY1TOIjEaTuTlifCXgCq6NwqPALjCSHgvDcrhcv6PFwMJITdginwd-Xfc8/exec",
         image: "/projects/icu-inventory-thumb.png",
     },
     {

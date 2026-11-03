@@ -4,6 +4,7 @@ import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Particles } from "@/components/AerosolBackground";
+import { MusicCornerWidget } from "@/components/ui/music-player-widget";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,18 +16,18 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://muhammadaliridho.my.id"),
   title: "Muhammad Ali Ridho | Portfolio",
   description:
-    "Portfolio of Muhammad Ali Ridho — Statistician, Tech Enthusiast, and Writer.",
+    "Portfolio of Muhammad Ali Ridho: Statistician, Tech Enthusiast, and Writer.",
   openGraph: {
     title: "Muhammad Ali Ridho | Portfolio",
     description:
-      "Statistician, Tech Enthusiast, and Writer. Solving problems with maximum efficiency and minimal cost.",
+      "Statistician, Tech Enthusiast, and Writer. Less manual work, zero server bills, and tools people actually use.",
     type: "website",
     locale: "en_US",
   },
   icons: {
     icon: [
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' }
+      { url: '/favicon-16x16.png', sizes: '16x32', type: 'image/png' }
     ],
     shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png'
@@ -46,14 +47,14 @@ export default function RootLayout({
       >
         <Particles
           className="fixed inset-0 z-[-1]"
-          quantity={80}
+          quantity={50}
           ease={80}
           color="#000000"
-          refresh
         />
         <Navigation />
         <main>{children}</main>
         <Footer />
+        <MusicCornerWidget />
       </body>
     </html>
   );

@@ -1,29 +1,67 @@
+"use client";
 
+import { useState } from "react";
+import { Check, Copy } from "lucide-react";
+
+const EMAIL = "ridhoali1922@gmail.com";
 
 export default function Footer() {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyEmail = async () => {
+        try {
+            await navigator.clipboard.writeText(EMAIL);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2200);
+        } catch {
+            // Fallback to mailto if clipboard API is blocked
+            window.location.href = `mailto:${EMAIL}`;
+        }
+    };
+
     return (
         <footer
             id="contact"
             className="bg-black text-white py-20 px-4 md:px-6 rounded-t-[3rem] mt-12 relative overflow-hidden"
         >
             {/* Abstract shape */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
 
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start gap-12 text-center md:text-left relative z-10">
                 <div className="max-w-md">
                     <h2 className="text-4xl font-bold mb-4 tracking-tight">
                         Let&apos;s Connect
                     </h2>
-                    <p className="text-gray-400 text-lg">
+                    <p className="text-neutral-400 text-lg">
                         Open for opportunities, collaborations, or a simple chat about data
                         and technology.
                     </p>
-                    <a
-                        href="mailto:ridhoali1922@gmail.com"
-                        className="inline-block mt-8 text-xl font-medium border-b border-gray-600 pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors"
-                    >
-                        ridhoali1922@gmail.com
-                    </a>
+                    <div className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-3">
+                        <a
+                            href={`mailto:${EMAIL}`}
+                            className="text-lg sm:text-xl font-medium border-b border-neutral-600 pb-1 hover:text-neutral-300 hover:border-neutral-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-xs"
+                        >
+                            {EMAIL}
+                        </a>
+                        <button
+                            type="button"
+                            onClick={handleCopyEmail}
+                            aria-label="Copy email address"
+                            className="inline-flex items-center gap-1.5 min-h-[38px] px-3.5 py-1.5 rounded-full bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-xs font-medium text-neutral-300 hover:text-white transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                        >
+                            {copied ? (
+                                <>
+                                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                                    <span className="text-emerald-400">Copied</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Copy className="w-3.5 h-3.5" />
+                                    <span>Copy</span>
+                                </>
+                            )}
+                        </button>
+                    </div>
                 </div>
 
                 <div className="flex gap-4 mt-4 md:mt-0">
@@ -32,7 +70,7 @@ export default function Footer() {
                         href="https://github.com/mhmmdridhali"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1"
+                        className="w-14 h-14 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                         aria-label="GitHub"
                     >
                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -44,7 +82,7 @@ export default function Footer() {
                         href="http://linkedin.com/in/muhammad-ali-ridho"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1"
+                        className="w-14 h-14 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                         aria-label="LinkedIn"
                     >
                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -56,7 +94,7 @@ export default function Footer() {
                         href="https://www.instagram.com/mhmmdridhali?igsh=MTU4ZXk3dzU0anR3cw=="
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1"
+                        className="w-14 h-14 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                         aria-label="Instagram"
                     >
                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -68,7 +106,7 @@ export default function Footer() {
                         href="https://medium.com/@mhmmdaliridh"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1"
+                        className="w-14 h-14 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                         aria-label="Medium"
                     >
                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -78,7 +116,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-gray-900 text-center text-sm text-gray-600 relative z-10">
+            <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-neutral-900 text-center text-sm text-neutral-400 relative z-10">
                 © 2026 Muhammad Ali Ridho. Designed with minimalist principles.
             </div>
         </footer>

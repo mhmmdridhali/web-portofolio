@@ -19,9 +19,12 @@ export default function Navigation() {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     return (
-        <nav className="fixed w-full bg-white/70 backdrop-blur-md z-50 border-b border-gray-200">
-            <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
-                <Link href="/" className="flex items-center">
+        <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-neutral-200/80">
+            <div className="max-w-6xl mx-auto px-4 md:px-6 py-3.5 flex justify-between items-center">
+                <Link
+                    href="/"
+                    className="flex items-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+                >
                     <motion.div
                         whileHover={{
                             scale: 1.05,
@@ -31,7 +34,7 @@ export default function Navigation() {
                         whileTap={{ scale: 0.9 }}
                     >
                         <Image
-                            src="/Logo MAR.png"
+                            src="/logo-mar.webp"
                             alt="MAR."
                             width={40}
                             height={40}
@@ -41,12 +44,12 @@ export default function Navigation() {
                 </Link>
 
                 {/* Desktop Navigation */}
-                <div className="hidden md:flex gap-8 text-sm font-medium text-gray-500">
+                <div className="hidden md:flex gap-8 text-sm font-medium text-neutral-500">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
                             href={link.href}
-                            className="relative py-1 transition-colors hover:text-black"
+                            className="relative py-1 transition-colors hover:text-black rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4"
                         >
                             <span
                                 className={
@@ -71,28 +74,33 @@ export default function Navigation() {
                 {/* Desktop Contact */}
                 <Link
                     href="/#contact"
-                    className="hidden md:inline-block text-sm font-medium bg-black text-white px-5 py-2.5 rounded-full hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                    className="hidden md:inline-block text-sm font-medium bg-black text-white px-5 py-2.5 rounded-full hover:bg-neutral-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                 >
                     Contact
                 </Link>
 
-                {/* Mobile Hamburger */}
+                {/* Mobile Hamburger (44x44px touch target) */}
                 <button
+                    type="button"
                     onClick={() => setMobileOpen(!mobileOpen)}
-                    className="md:hidden flex flex-col gap-1.5 p-2"
+                    className="md:hidden w-11 h-11 flex flex-col items-center justify-center gap-1.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
                     aria-label="Toggle menu"
+                    aria-expanded={mobileOpen}
                 >
                     <span
-                        className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${mobileOpen ? "translate-y-2 rotate-45" : ""
-                            }`}
+                        className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${
+                            mobileOpen ? "translate-y-2 rotate-45" : ""
+                        }`}
                     />
                     <span
-                        className={`block w-6 h-0.5 bg-black transition-opacity duration-300 ${mobileOpen ? "opacity-0" : ""
-                            }`}
+                        className={`block w-6 h-0.5 bg-black transition-opacity duration-300 ${
+                            mobileOpen ? "opacity-0" : ""
+                        }`}
                     />
                     <span
-                        className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${mobileOpen ? "-translate-y-2 -rotate-45" : ""
-                            }`}
+                        className={`block w-6 h-0.5 bg-black transition-transform duration-300 ${
+                            mobileOpen ? "-translate-y-2 -rotate-45" : ""
+                        }`}
                     />
                 </button>
             </div>
@@ -104,18 +112,19 @@ export default function Navigation() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 overflow-hidden"
+                        className="md:hidden bg-white/95 backdrop-blur-md border-t border-neutral-100 overflow-hidden"
                     >
-                        <div className="px-4 py-4 flex flex-col gap-4">
+                        <div className="px-4 py-4 flex flex-col gap-2">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
                                     onClick={() => setMobileOpen(false)}
-                                    className={`text-lg font-medium transition-colors py-2 border-b border-gray-100 last:border-0 ${pathname === link.href
-                                        ? "text-black font-bold"
-                                        : "text-gray-500 hover:text-black"
-                                        }`}
+                                    className={`text-lg font-medium transition-colors py-2.5 border-b border-neutral-100 last:border-0 ${
+                                        pathname === link.href
+                                            ? "text-black font-bold"
+                                            : "text-neutral-500 hover:text-black"
+                                    }`}
                                 >
                                     {link.label}
                                 </Link>
@@ -123,7 +132,7 @@ export default function Navigation() {
                             <Link
                                 href="/#contact"
                                 onClick={() => setMobileOpen(false)}
-                                className="text-sm font-medium bg-black text-white px-5 py-2.5 rounded-full text-center hover:bg-gray-800 transition-all mt-2"
+                                className="min-h-[44px] flex items-center justify-center text-sm font-medium bg-black text-white px-5 py-2.5 rounded-full text-center hover:bg-neutral-800 transition-all mt-2"
                             >
                                 Contact
                             </Link>

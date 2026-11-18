@@ -12,7 +12,7 @@ import {
     GraduationCap,
     CheckCircle2,
 } from "lucide-react";
-import { techStack } from "@/data/techStack";
+import TechStackCloud from "@/components/ui/tech-stack-cloud";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 24 },
@@ -533,32 +533,9 @@ export default function AboutPageClient() {
                         className="w-12 h-1 bg-black mb-10 mx-auto md:mx-0"
                     ></motion.div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
-                        {techStack.map((tool) => (
-                            <motion.div
-                                key={tool.name}
-                                variants={fadeUp}
-                                whileHover={{ y: -6, scale: 1.04 }}
-                                whileTap={{ scale: 0.96 }}
-                                className="bg-white/85 backdrop-blur-md border border-white/60 px-5 py-5 rounded-2xl text-center hover:bg-black hover:text-white transition-colors duration-300 cursor-pointer shadow-sm group flex flex-col items-center justify-center gap-3 relative overflow-hidden"
-                            >
-                                <div className="w-16 h-16 flex items-center justify-center">
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img
-                                        src={tool.iconUrl}
-                                        alt={tool.name}
-                                        width={42}
-                                        height={42}
-                                        loading="lazy"
-                                        className="w-10 h-10 object-contain transition-transform duration-300 group-hover:scale-115 group-hover:-rotate-6 group-hover:invert"
-                                    />
-                                </div>
-                                <span className="text-xs font-semibold text-neutral-700 group-hover:text-white transition-colors relative z-10">
-                                    {tool.name}
-                                </span>
-                            </motion.div>
-                        ))}
-                    </div>
+                    <motion.div variants={fadeUp}>
+                        <TechStackCloud />
+                    </motion.div>
                 </motion.div>
             </section>
 

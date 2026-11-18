@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import LanyardBadge from "@/components/ui/lanyard-badge";
 
 const QUOTE_TEXT =
     '"Less manual work, zero server bills, and tools people actually use."';
@@ -117,31 +117,14 @@ export default function Hero() {
                     </motion.blockquote>
                 </motion.div>
 
-                {/* Profile Picture Frame */}
+                {/* Ditjen Pendis & Kartu ASN Virtual Lanyard */}
                 <motion.div
-                    className="order-1 md:order-2 flex justify-center md:justify-end relative"
+                    className="order-1 md:order-2 flex flex-col items-center relative -mt-24 md:-mt-28"
                     variants={imageVariants}
                     initial="hidden"
                     animate="visible"
                 >
-                    <div className="relative w-64 h-64 md:w-80 md:h-80 animate-float">
-                        {/* Decorative Background Elements */}
-                        <div className="absolute inset-0 bg-neutral-300 rounded-[2rem] rotate-6 opacity-50 blur-sm mix-blend-multiply transition-transform group-hover:rotate-12"></div>
-                        <div className="absolute inset-0 bg-black rounded-[2rem] -rotate-3 transition-transform group-hover:rotate-0"></div>
-
-                        {/* Image Container */}
-                        <div className="absolute inset-0 bg-neutral-100 rounded-[2rem] border-4 border-white shadow-2xl overflow-hidden flex items-center justify-center cursor-pointer transition-transform hover:scale-105 duration-300">
-                            <Image
-                                src="/profile.webp"
-                                alt="Muhammad Ali Ridho"
-                                width={400}
-                                height={400}
-                                sizes="(max-width: 768px) 256px, 320px"
-                                priority
-                                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                            />
-                        </div>
-                    </div>
+                    <LanyardBadge cardWidth={236} height="540px" />
                 </motion.div>
             </div>
         </section>

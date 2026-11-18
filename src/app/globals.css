@@ -1084,3 +1084,36 @@
     opacity: 0 !important;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* Tech Stack Cloud Marquee                                                   */
+/* -------------------------------------------------------------------------- */
+
+@keyframes logo-cloud-10-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--marquee-gap, 0.875rem)));
+  }
+}
+
+.logo-cloud-10-track {
+  animation: logo-cloud-10-marquee var(--marquee-duration, 34s) linear infinite;
+  will-change: transform;
+}
+
+.logo-cloud-10-track[data-reverse="true"] {
+  animation-direction: reverse;
+}
+
+.logo-cloud-10-marquee:hover .logo-cloud-10-track,
+.logo-cloud-10-marquee:focus-within .logo-cloud-10-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-cloud-10-track {
+    animation: none;
+  }
+}

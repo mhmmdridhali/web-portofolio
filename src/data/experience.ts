@@ -1,5 +1,7 @@
 export interface ExperienceItem {
     period: string;
+    yearLabel: string;
+    subPeriod: string;
     isCurrent: boolean;
     title: string;
     org: string;
@@ -12,12 +14,14 @@ export interface ExperienceItem {
 export const experiences: ExperienceItem[] = [
     {
         period: "Present",
+        yearLabel: "Present",
+        subPeriod: "2025 – Present",
         isCurrent: true,
-        title: "Statistician (Statistisi Ahli Pertama)",
-        org: "Ministry of Religious Affairs (Kemenag Kab. Banjar)",
+        title: "Statistician",
+        org: "Government Sector",
         type: "Professional",
         description:
-            "Managing and analyzing Islamic education data (EMIS, Verval PD, PDUM, TKA) for madrasahs across Banjar Regency. Most operational bottlenecks in our office do not need heavy cloud infrastructure, so I build tools primarily with Google Apps Script and Google Workspace. They cost nothing to run, take very little time to set up, and work right inside the spreadsheets and folders that staff and school operators already use every day.",
+            "Managing and analyzing education data (EMIS, Verval PD, PDUM, TKA) across 20 districts. Most operational bottlenecks in our office do not need heavy cloud infrastructure, so I build tools primarily with Google Apps Script and Google Workspace. They cost nothing to run, take very little time to set up, and work right inside the spreadsheets and folders that staff and school operators already use every day.",
         achievements: [
             "Built 10+ Google Apps Script web apps and dashboards (SI-PRIMA, SI-PELITA, SI-PERKAS, Monitor BAP EMIS, Humas Award) running on Google Sheets and Drive with zero hosting bills",
             "Wrote Python browser automation scripts (Selenium and Playwright) for repetitive national portal tasks, including 1-by-1 Electronic Signature (TTE) uploads and EMIS Special Needs (BKH) student checks",
@@ -35,6 +39,8 @@ export const experiences: ExperienceItem[] = [
     },
     {
         period: "Feb 2023 - Jun 2023",
+        yearLabel: "2023",
+        subPeriod: "Feb 2023 – Jun 2023",
         isCurrent: false,
         title: "Project Officer Intern",
         org: "Yayasan Hasnur Centre - HAFECS",
@@ -51,6 +57,8 @@ export const experiences: ExperienceItem[] = [
     },
     {
         period: "2022 - 2023",
+        yearLabel: "2022 – 2023",
+        subPeriod: "Academic Year 2022 – 2023",
         isCurrent: false,
         title: "Online Tutor",
         org: "Marbelika",
@@ -67,6 +75,8 @@ export const experiences: ExperienceItem[] = [
     },
     {
         period: "Mar 2022 - Feb 2023",
+        yearLabel: "2022",
+        subPeriod: "Mar 2022 – Feb 2023",
         isCurrent: false,
         title: "Head / Leader",
         org: "KSI Ulul Albab",
@@ -86,6 +96,6 @@ export const experiences: ExperienceItem[] = [
 export const experienceStats = [
     { value: "15+", label: "GAS & Automation Tools Built" },
     { value: "600+", label: "Stakeholders Coordinated" },
-    { value: "20", label: "Districts Covered in Banjar" },
+    { value: "20", label: "Districts Covered" },
     { value: "80%", label: "Manual Work Reduced" },
 ];

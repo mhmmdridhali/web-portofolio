@@ -58,11 +58,11 @@ export const projects: ProjectItem[] = [
         bentoSummary:
             "Apps Script dashboard that pulls live EMIS BAP confirmation status via Bearer Token API into Google Sheets and formats 1-click WhatsApp recaps.",
         description:
-            "A Google Apps Script monitoring web app that connects to the central EMIS REST API via Bearer Token to track Berita Acara Pendataan (BAP) confirmation progress across all madrasahs in Banjar Regency, paired with a 1-click WhatsApp recap generator.",
+            "A monitoring web app that tracks Berita Acara Pendataan (BAP) confirmation progress across all madrasahs in Banjar Regency and generates 1-click WhatsApp status recaps.",
         challenge:
             "During EMIS data cut-off periods, checking which madrasahs (RA, MI, MTs, and MA) had confirmed their BAP meant logging into the central portal, filtering pages one by one, and typing status updates by hand for operator WhatsApp groups.",
         solution:
-            "I built a lightweight Apps Script web app backed by Google Sheets that pulls live school confirmation states straight from the EMIS API, saves the latest sync timestamp in ScriptProperties, and formats a copy-ready WhatsApp summary.",
+            "I built a lightweight web app backed by Google Sheets that pulls live school confirmation states straight from the central EMIS portal and formats a copy-ready WhatsApp summary in one click.",
         architecture: [
             "Uses Bearer Token authorization to fetch live BAP confirmation data across all madrasah levels from the EMIS REST API.",
             "Clears old rows and writes fresh NSM, School Name, Level (RA/MI/MTs/MA), Confirmation Status, and Timestamp records into Google Sheets in one batch.",
@@ -70,7 +70,7 @@ export const projects: ProjectItem[] = [
             "The 'Buat Rekap WA' modal counts completed schools and lists unconfirmed ones in a ready-to-send WhatsApp message.",
         ],
         features: [
-            "Direct EMIS REST API sync using Bearer Token input",
+            "One-click live data sync from the central EMIS portal",
             "Batch writing to Google Sheets with Last Sync timestamp tracking",
             "Filterable table by level (RA/MI/MTs/MA) and BAP status",
             "1-click WhatsApp Recap Generator ('Buat Rekap WA') for operator follow-ups",
@@ -121,7 +121,7 @@ export const projects: ProjectItem[] = [
         challenge:
             "Juggling daily office statistics, official travel reports (LPD), regulatory reading, Medium drafts, personal finance logs, and workout reminders across separate apps took too much mental energy.",
         solution:
-            "I set up a multi-agent team on Hermes Agent ('Minerva' plus The Coder, The Scribe/DocuHelper, The Scout/Researcher, The Writer, The Investor, and The Trainer) running scheduled cron jobs with Python pre-flight health checks and Telegram topic routing.",
+            "I set up a personal AI assistant team ('Minerva' plus 6 role-specific helpers for coding, official documents, daily research, writing, finance, and health) that runs on a daily schedule and reports directly to my Telegram.",
         architecture: [
             "Minerva (Lead Agent) runs a 06:00 WITA daily context sync, logs end-of-day tasks to Google Sheets, and compiles Sunday weekly reviews.",
             "The Scribe (DocuHelper) turns short bullet points and Drive photos into formatted Kemenag travel reports (LPD) in Google Docs, while The Coder drafts Apps Script projects from structured specs.",
@@ -130,7 +130,7 @@ export const projects: ProjectItem[] = [
         ],
         features: [
             "Coordinates 6 role agents (Coder, DocuHelper, Researcher, Writer, Finance, Health)",
-            "9+ scheduled cron jobs with Python pre-flight health checks and auto-restart",
+            "Automated daily routines for morning briefings, task logging, and weekly reviews",
             "Generates formatted Google Docs LPD reports and updates Google Sheets trackers",
             "Learns topic preferences from my Telegram approvals on daily research briefs",
             "Routes messages to dedicated Telegram Forum Topics for each agent role",
@@ -151,7 +151,7 @@ export const projects: ProjectItem[] = [
         challenge:
             "AI agents forget context between sessions when instructions, Kemenag regulations, EMIS notes, and daily logs stay buried in chat history instead of plain files.",
         solution:
-            "I organized a shared Markdown vault with clear folder permissions, YAML frontmatter tags, real-time 2-way Syncthing replication between my VPS and laptop, and a daily Knowledge Building Loop.",
+            "I organized a shared Markdown notebook that stays synced in real time between my laptop and cloud server, giving both me and my AI assistants a single organized place for notes and work rules.",
         architecture: [
             "Folder rules separate agent-writable directories (agents/<role>/memory.md, skills.md, reports/) from my personal folders (notes/, projects/, meetings/), using shared/context.md as the bridge.",
             "Syncthing keeps files synced in real time between the Linux VPS and my Windows laptop, while an hourly cron job backs up changes to GitHub.",
@@ -159,7 +159,7 @@ export const projects: ProjectItem[] = [
             "A weekly Python script (weekly_rekap_update.py) merges daily agent logs into monthly summaries and archives older files.",
         ],
         features: [
-            "270+ Markdown notes with consistent YAML frontmatter and tags",
+            "270+ organized notes with consistent tags and categories",
             "Real-time 2-way sync between VPS and laptop via Syncthing plus hourly GitHub backups",
             "Clear folder boundaries between human notes and agent memory files",
             "Reference library for EMIS, Kemenag regulations, GAS snippets, and Statistician SOPs",
@@ -189,8 +189,8 @@ export const projects: ProjectItem[] = [
         ],
         features: [
             "Automated 1-by-1 PDF upload and form filling on tte.kemenag.go.id with Selenium",
-            "Handles Select2 dropdowns and dynamic form events automatically",
-            "Uses a persistent Playwright Chrome profile to avoid repeated logins and CAPTCHAs",
+            "Fills out multi-step forms and dropdown menus automatically",
+            "Remembers login sessions so operators don't have to sign in repeatedly",
             "Looks up student NISNs and extracts Special Needs (BKH) status from EMIS",
             "Saves verified rows directly into .xlsx files with auto-resume on interruption",
         ],
@@ -222,7 +222,7 @@ export const projects: ProjectItem[] = [
         ],
         features: [
             "Responsive public portal and authenticated admin dashboard",
-            "Pure CSS animations with First Load JS kept under 130kB",
+            "Fast-loading pages built for both mobile phones and office desktops",
             "Automated sitemap, metadata, and SEO setup with a built-in rich text editor",
             "Modular structure ready for new madrasah data integrations",
         ],
@@ -324,7 +324,7 @@ export const projects: ProjectItem[] = [
         challenge:
             "Downloading final-year student rosters (RA, MI, MTs, MA) from EMIS used to mean exporting and combining Excel files one school at a time.",
         solution:
-            "I wrote Apps Script batch scripts (RA.js, MI.js, MTS.js, MA.js) that paginate through the EMIS API, grab school metadata, and create formatted tabs for each madrasah automatically.",
+            "I built an automated tool that pulls student lists across all madrasah levels (RA, MI, MTs, MA) and organizes them into clean, per-school Google Sheets tabs automatically.",
         architecture: [
             "Iterates through institution IDs and multi-page student lists using UrlFetchApp.",
             "Creates and names individual sheets in the format 'NPSN - Nama Lembaga'.",
@@ -433,7 +433,7 @@ export const projects: ProjectItem[] = [
         challenge:
             "Keeping school addresses and principal phone numbers up to date across hundreds of madrasahs was messy because of inconsistent phone formats (+62, 08, spaces, dashes) and duplicate rows.",
         solution:
-            "I built an Apps Script web form with NPSN/NSM auto-fill, automatic phone number cleanup (converting all inputs to 08xxxxxxxxxx), in-place row updates, and an Admin Contact Directory (?v=admin).",
+            "I built an online form that auto-fills school details from their ID code, formats every principal's phone number into a clean WhatsApp link, and updates existing records without creating duplicates.",
         architecture: [
             "Looks up existing schools by NPSN or NSM and updates the row in place instead of creating duplicates.",
             "A phone normalizer (normalizePhone_) strips spaces and dashes and converts +62 or 62 prefixes into standard 08xx numbers for 1-click WhatsApp chat links.",
@@ -443,7 +443,7 @@ export const projects: ProjectItem[] = [
             "NPSN and NSM lookup with automatic form pre-fill",
             "Automatic WhatsApp number formatting (08xxxxxxxxxx)",
             "Admin directory for contacting madrasah principals",
-            "Client and server input validation with WITA timestamps",
+            "Automatic validation to prevent duplicate school entries",
         ],
         tech: ["Google Apps Script", "Google Sheets", "Bootstrap 5"],
         liveUrl: "https://s.id/ProfilLembagaKabBanjar",

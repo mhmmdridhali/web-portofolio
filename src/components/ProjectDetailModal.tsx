@@ -3,7 +3,14 @@
 import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { X, ExternalLink, Lock, Layers, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
+import {
+    X,
+    ExternalLink,
+    Lock,
+    CheckCircle2,
+    AlertCircle,
+    Sparkles,
+} from "lucide-react";
 import type { ProjectItem } from "@/data/projects";
 
 interface ProjectDetailModalProps {
@@ -66,129 +73,88 @@ export default function ProjectDetailModal({
                         transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
                         className="relative z-10 w-full max-w-4xl max-h-[90vh] bg-white rounded-[2rem] shadow-2xl border border-neutral-200 overflow-hidden flex flex-col"
                     >
-                        {/* Top Image Header */}
-                        <div className="relative h-52 sm:h-72 w-full bg-neutral-900 flex-shrink-0 border-b border-neutral-200 overflow-hidden">
-                            <Image
-                                src={project.image}
-                                alt={project.title}
-                                fill
-                                className="object-cover object-top"
-                                sizes="(max-width: 896px) 100vw, 896px"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-
-                            {/* Category Pill */}
-                            <div className="absolute top-4 left-4 flex items-center gap-2">
-                                <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-black/80 text-white backdrop-blur-md border border-white/15">
-                                    {project.category} Project
-                                </span>
+                        {/* Compact Sticky Header */}
+                        <div className="flex-shrink-0 px-6 py-4 border-b border-neutral-200 bg-white flex items-start justify-between gap-4">
+                            <div className="min-w-0 flex-1">
+                                <div className="flex flex-wrap items-center gap-1.5 mb-2">
+                                    <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-black text-white">
+                                        {project.category} Project
+                                    </span>
+                                    {project.tech.map((t) => (
+                                        <span
+                                            key={t}
+                                            className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-neutral-100 text-neutral-700 border border-neutral-200"
+                                        >
+                                            {t}
+                                        </span>
+                                    ))}
+                                </div>
+                                <h2
+                                    id="modal-project-title"
+                                    className="text-xl sm:text-2xl font-extrabold tracking-tight text-black leading-snug"
+                                >
+                                    {project.title}
+                                </h2>
                             </div>
 
-                            {/* Close Button */}
                             <button
                                 ref={closeBtnRef}
                                 type="button"
                                 onClick={onClose}
                                 aria-label="Close project details"
-                                className="absolute top-4 right-4 w-11 h-11 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center backdrop-blur-md border border-white/15 transition-transform hover:scale-105 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                                className="w-10 h-10 rounded-full bg-neutral-100 hover:bg-black text-neutral-700 hover:text-white flex items-center justify-center transition-colors shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
                             >
                                 <X className="w-5 h-5" />
                             </button>
-
-                            {/* Title Overlay */}
-                            <div className="absolute bottom-4 left-6 right-6 text-white">
-                                <h2
-                                    id="modal-project-title"
-                                    className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight drop-shadow-sm"
-                                >
-                                    {project.title}
-                                </h2>
-                            </div>
                         </div>
 
-                        {/* Scrollable Body */}
-                        <div className="p-6 sm:p-8 overflow-y-auto space-y-8 flex-grow">
-                            {/* Tech Stack Pills */}
-                            <div className="flex flex-wrap gap-2">
-                                {project.tech.map((t) => (
-                                    <span
-                                        key={t}
-                                        className="text-xs font-semibold px-3.5 py-1.5 rounded-full bg-neutral-100 text-neutral-800 border border-neutral-200"
-                                    >
-                                        {t}
-                                    </span>
-                                ))}
+                        {/* Scrollable Editorial Body */}
+                        <div className="p-6 sm:p-8 overflow-y-auto space-y-6 flex-grow">
+                            {/* Uncovered 16:9 Thumbnail Frame (scrolls away cleanly) */}
+                            <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200 shadow-sm">
+                                <Image
+                                    src={project.image}
+                                    alt={project.title}
+                                    fill
+                                    className="object-cover object-top"
+                                    sizes="(max-width: 896px) 100vw, 832px"
+                                />
                             </div>
 
-                            {/* Overview */}
-                            <div>
-                                <p className="text-neutral-600 text-sm sm:text-base leading-relaxed text-left md:text-justify">
-                                    {project.description}
-                                </p>
-                            </div>
+                            {/* Plain-English Overview */}
+                            <p className="text-neutral-700 text-sm sm:text-base leading-relaxed text-left">
+                                {project.description}
+                            </p>
 
-                            {/* The Challenge & The Solution */}
+                            {/* The Problem & How It Helps */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="bg-neutral-50 border border-neutral-200/80 rounded-2xl p-5 sm:p-6">
+                                <div className="bg-neutral-50 border border-neutral-200/80 rounded-2xl p-5">
                                     <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-600 mb-2.5">
                                         <AlertCircle className="w-4 h-4 text-neutral-800" />
-                                        <span>The Challenge</span>
+                                        <span>The Problem</span>
                                     </div>
-                                    <p className="text-neutral-700 text-sm leading-relaxed text-left md:text-justify">
+                                    <p className="text-neutral-700 text-sm leading-relaxed text-left">
                                         {project.challenge}
                                     </p>
                                 </div>
 
-                                <div className="bg-neutral-900 text-white rounded-2xl p-5 sm:p-6 shadow-md">
+                                <div className="bg-neutral-900 text-white rounded-2xl p-5 shadow-md">
                                     <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-300 mb-2.5">
                                         <Sparkles className="w-4 h-4 text-white" />
-                                        <span>The Solution</span>
+                                        <span>How It Helps</span>
                                     </div>
-                                    <p className="text-neutral-200 text-sm leading-relaxed text-left md:text-justify">
+                                    <p className="text-neutral-200 text-sm leading-relaxed text-left">
                                         {project.solution}
                                     </p>
                                 </div>
                             </div>
 
-                            {/* Architecture & Workflow */}
+                            {/* What It Does */}
                             <div>
-                                <div className="flex items-center gap-2 mb-4">
-                                    <Layers className="w-5 h-5 text-black" />
-                                    <h3 className="text-lg font-bold text-black">
-                                        System Architecture & Workflow
-                                    </h3>
-                                </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    {project.architecture.map((step, index) => (
-                                        <motion.div
-                                            key={index}
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{
-                                                duration: 0.25,
-                                                delay: 0.05 * index,
-                                                ease: [0.16, 1, 0.3, 1],
-                                            }}
-                                            whileHover={{ y: -2 }}
-                                            className="flex items-start gap-3.5 p-4 rounded-2xl bg-white border border-neutral-200 hover:border-black/40 transition-colors shadow-2xs"
-                                        >
-                                            <span className="w-7 h-7 rounded-full bg-black text-white text-xs font-bold tabular-nums flex items-center justify-center flex-shrink-0 mt-0.5">
-                                                {String(index + 1).padStart(2, "0")}
-                                            </span>
-                                            <span className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
-                                                {step}
-                                            </span>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Key Features */}
-                            <div>
-                                <div className="flex items-center gap-2 mb-4">
+                                <div className="flex items-center gap-2 mb-3">
                                     <CheckCircle2 className="w-5 h-5 text-black" />
-                                    <h3 className="text-lg font-bold text-black">
-                                        Key Features & Capabilities
+                                    <h3 className="text-base sm:text-lg font-bold text-black">
+                                        What It Does
                                     </h3>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -205,14 +171,14 @@ export default function ProjectDetailModal({
                             </div>
                         </div>
 
-                        {/* Sticky Footer */}
-                        <div className="px-6 py-4 bg-neutral-50 border-t border-neutral-200 flex flex-wrap items-center justify-between gap-3 flex-shrink-0">
+                        {/* Compact Sticky Footer */}
+                        <div className="px-6 py-3.5 bg-neutral-50 border-t border-neutral-200 flex flex-wrap items-center justify-between gap-3 flex-shrink-0">
                             {project.liveUrl ? (
                                 <a
                                     href={project.liveUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 min-h-[44px] px-6 py-2.5 rounded-full bg-black hover:bg-neutral-800 text-white text-sm font-semibold transition-all shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+                                    className="inline-flex items-center gap-2 min-h-[44px] px-6 py-2.5 rounded-full bg-black hover:bg-neutral-800 text-white text-sm font-semibold transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                                 >
                                     <span>Visit Live Project</span>
                                     <ExternalLink className="w-4 h-4" />

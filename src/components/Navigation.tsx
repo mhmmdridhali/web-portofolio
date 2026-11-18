@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
@@ -18,14 +18,53 @@ export default function Navigation() {
     const pathname = usePathname();
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isFloating, setIsFloating] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+    const [isHiddenOnMobile, setIsHiddenOnMobile] = useState(false);
+    const lastScrollY = useRef(0);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsFloating(window.scrollY > 80);
+        const handleResize = () => {
+            const mobile = window.innerWidth < 768;
+            setIsMobile(mobile);
+            if (!mobile) setIsHiddenOnMobile(false);
         };
-        handleScroll();
+
+        const handleScroll = () => {
+            const currentY = window.scrollY;
+            const delta = currentY - lastScrollY.current;
+            const mobile = window.innerWidth < 768;
+
+            setIsFloating(currentY > 80);
+
+            if (mobile) {
+                if (currentY <= 60) {
+                    setIsHiddenOnMobile(false);
+                } else if (delta > 6) {
+                    setIsHiddenOnMobile(true);
+                    setMobileOpen(false);
+                } else if (delta < -6) {
+                    setIsHiddenOnMobile(false);
+                }
+            } else {
+                setIsHiddenOnMobile(false);
+            }
+
+            lastScrollY.current = currentY;
+        };
+
+        const rafId = requestAnimationFrame(() => {
+            handleResize();
+            lastScrollY.current = window.scrollY;
+            setIsFloating(window.scrollY > 80);
+        });
+
         window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
+        window.addEventListener("resize", handleResize, { passive: true });
+        return () => {
+            cancelAnimationFrame(rafId);
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
 
     return (
@@ -33,15 +72,23 @@ export default function Navigation() {
             <motion.div
                 initial={false}
                 animate={{
-                    maxWidth: isFloating ? 1024 : 1152,
-                    minHeight: isFloating ? 64 : 76,
-                    y: isFloating ? 14 : 0,
-                    borderRadius: isFloating ? 9999 : 0,
+                    maxWidth: isMobile ? 1152 : isFloating ? 1024 : 1152,
+                    minHeight: isMobile ? 56 : isFloating ? 64 : 76,
+                    y: isMobile
+                        ? isHiddenOnMobile && !mobileOpen
+                            ? -72
+                            : 0
+                        : isFloating
+                        ? 14
+                        : 0,
+                    borderRadius: isMobile ? 0 : isFloating ? 9999 : 0,
                 }}
-                transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
-                className={`pointer-events-auto mx-auto flex items-center justify-between gap-4 px-4 md:px-6 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ${
-                    isFloating
-                        ? "bg-white/85 border border-neutral-200/80 shadow-xl backdrop-blur-xl"
+                transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                className={`pointer-events-auto mx-auto flex items-center justify-between gap-4 px-4 md:px-6 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
+                    isFloating || mobileOpen
+                        ? isMobile
+                            ? "bg-white/90 border-b border-neutral-200/80 shadow-sm backdrop-blur-md"
+                            : "bg-white/85 border border-neutral-200/80 shadow-xl backdrop-blur-xl"
                         : "bg-transparent border border-transparent shadow-none backdrop-blur-none"
                 }`}
             >
@@ -143,7 +190,7 @@ export default function Navigation() {
                             initial={{ opacity: 0, y: -6, scale: 0.98 }}
                             animate={{
                                 opacity: 1,
-                                y: isFloating ? 18 : 6,
+                                y: 6,
                                 scale: 1,
                             }}
                             exit={{ opacity: 0, y: -6, scale: 0.98 }}

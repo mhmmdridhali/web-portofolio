@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import LanyardBadge from "@/components/ui/lanyard-badge";
 
 const QUOTE_TEXT =
@@ -37,18 +37,12 @@ const imageVariants = {
 } as const;
 
 function TypewriterQuote() {
+    const prefersReducedMotion = useReducedMotion();
     const [displayedText, setDisplayedText] = useState("");
     const [typingDone, setTypingDone] = useState(false);
 
     useEffect(() => {
-        if (
-            typeof window !== "undefined" &&
-            window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ) {
-            setDisplayedText(QUOTE_TEXT);
-            setTypingDone(true);
-            return;
-        }
+        if (prefersReducedMotion !== false) return;
 
         let i = 0;
         let intervalId: ReturnType<typeof setInterval>;
@@ -69,15 +63,18 @@ function TypewriterQuote() {
             clearTimeout(startTimeout);
             if (intervalId) clearInterval(intervalId);
         };
-    }, []);
+    }, [prefersReducedMotion]);
+
+    const textToRender = prefersReducedMotion ? QUOTE_TEXT : displayedText;
+    const isDone = Boolean(prefersReducedMotion) || typingDone;
 
     return (
         <p
             className={`relative text-lg md:text-xl lg:text-2xl font-medium italic text-neutral-700 leading-relaxed pl-6 md:pl-8 before:content-[''] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1 before:bg-black before:rounded-full${
-                !typingDone ? " cursor" : ""
+                !isDone ? " cursor" : ""
             }`}
         >
-            {displayedText}
+            {textToRender}
         </p>
     );
 }

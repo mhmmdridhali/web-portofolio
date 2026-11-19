@@ -8,7 +8,6 @@ import { MusicCornerWidget } from "@/components/ui/music-player-widget";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-inter",
 });
 

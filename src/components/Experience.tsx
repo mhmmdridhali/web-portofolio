@@ -32,12 +32,12 @@ export default function Experience() {
                 variants={staggerContainer}
                 className="mb-16 text-center"
             >
-                <motion.h3
+                <motion.h2
                     variants={fadeUp}
                     className="text-3xl font-bold tracking-tight"
                 >
                     Experience
-                </motion.h3>
+                </motion.h2>
                 <motion.p variants={fadeUp} className="text-neutral-600 mt-4">
                     My professional and organizational journey
                 </motion.p>

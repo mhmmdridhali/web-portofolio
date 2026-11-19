@@ -8,6 +8,9 @@ import {
 } from "@/lib/github-contributions";
 
 const CACHE_TTL_MS = 1000 * 60 * 60; // 1 hour
+const LIVE_CACHE_HEADER = "public, s-maxage=3600, stale-while-revalidate=86400";
+const STALE_CACHE_HEADER = "public, s-maxage=300";
+
 let cachedEntry: { data: GithubContributionsPayload; timestamp: number } | null = null;
 
 interface ExternalContributionDay {
@@ -26,7 +29,9 @@ interface ExternalContributionsResponse {
 
 export async function GET() {
     if (cachedEntry && Date.now() - cachedEntry.timestamp < CACHE_TTL_MS) {
-        return NextResponse.json(cachedEntry.data);
+        return NextResponse.json(cachedEntry.data, {
+            headers: { "Cache-Control": LIVE_CACHE_HEADER },
+        });
     }
 
     try {
@@ -67,8 +72,18 @@ export async function GET() {
             timestamp: Date.now(),
         };
 
-        return NextResponse.json(payload);
+        return NextResponse.json(payload, {
+            headers: { "Cache-Control": LIVE_CACHE_HEADER },
+        });
     } catch {
-        return NextResponse.json(buildFallbackContributionData());
+        if (cachedEntry) {
+            return NextResponse.json(cachedEntry.data, {
+                headers: { "Cache-Control": STALE_CACHE_HEADER },
+            });
+        }
+
+        return NextResponse.json(buildFallbackContributionData(), {
+            headers: { "Cache-Control": "no-store" },
+        });
     }
 }

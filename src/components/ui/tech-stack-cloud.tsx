@@ -160,6 +160,8 @@ export default function TechStackCloud({
 
     const wrapperRef = React.useRef<HTMLDivElement>(null);
     const scrollRef = React.useRef<HTMLDivElement>(null);
+    const cellRefs = React.useRef<Map<string, HTMLButtonElement>>(new Map());
+    const [activeCell, setActiveCell] = React.useState<string | null>(null);
 
     React.useEffect(() => {
         const controller = new AbortController();
@@ -201,6 +203,70 @@ export default function TechStackCloud({
         () => getMonthHeaderLabels(data.weeks),
         [data.weeks]
     );
+
+    // Roving tabindex: exactly one cell is tabbable (default: most recent day)
+    const tabbableKey = React.useMemo(() => {
+        if (activeCell && data.weeks.some((w, c) => w.some((d, r) => d && `${c},${r}` === activeCell))) {
+            return activeCell;
+        }
+        for (let c = data.weeks.length - 1; c >= 0; c--) {
+            for (let r = data.weeks[c].length - 1; r >= 0; r--) {
+                if (data.weeks[c][r]) return `${c},${r}`;
+            }
+        }
+        return null;
+    }, [activeCell, data.weeks]);
+
+    const moveFocus = (e: React.KeyboardEvent<HTMLButtonElement>, col: number, row: number) => {
+        const weeks = data.weeks;
+        const has = (c: number, r: number) => !!weeks[c]?.[r];
+        let nc = col;
+        let nr = row;
+        switch (e.key) {
+            case "ArrowRight": {
+                let c = col + 1;
+                while (c < weeks.length && !has(c, row)) c++;
+                if (c < weeks.length) nc = c;
+                break;
+            }
+            case "ArrowLeft": {
+                let c = col - 1;
+                while (c >= 0 && !has(c, row)) c--;
+                if (c >= 0) nc = c;
+                break;
+            }
+            case "ArrowDown": {
+                let r = row + 1;
+                while (r < weeks[col].length && !has(col, r)) r++;
+                if (r < weeks[col].length) nr = r;
+                break;
+            }
+            case "ArrowUp": {
+                let r = row - 1;
+                while (r >= 0 && !has(col, r)) r--;
+                if (r >= 0) nr = r;
+                break;
+            }
+            case "Home": {
+                let c = 0;
+                while (c < col && !has(c, row)) c++;
+                nc = c;
+                break;
+            }
+            case "End": {
+                let c = weeks.length - 1;
+                while (c > col && !has(c, row)) c--;
+                nc = c;
+                break;
+            }
+            default:
+                return;
+        }
+        e.preventDefault();
+        const key = `${nc},${nr}`;
+        setActiveCell(key);
+        cellRefs.current.get(key)?.focus();
+    };
 
     const handleCellActivate = (
         e: React.SyntheticEvent<HTMLButtonElement>,
@@ -299,7 +365,10 @@ export default function TechStackCloud({
                     <div
                         ref={scrollRef}
                         onScroll={() => setTooltip(null)}
-                        className="overflow-x-auto no-scrollbar pb-1"
+                        tabIndex={0}
+                        role="group"
+                        aria-label="Contribution heatmap, scrollable"
+                        className="overflow-x-auto no-scrollbar pb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 rounded-lg"
                     >
                         <div className="min-w-[660px] md:min-w-0 w-full">
                             {/* Month Labels */}
@@ -313,7 +382,7 @@ export default function TechStackCloud({
                                 {data.weeks.map((_, colIdx) => (
                                     <div
                                         key={colIdx}
-                                        className="text-[11px] font-medium text-neutral-500 leading-none select-none overflow-visible whitespace-nowrap"
+                                        className="text-[11px] font-medium text-neutral-600 leading-none select-none overflow-visible whitespace-nowrap"
                                     >
                                         {monthLabels.get(colIdx) ?? ""}
                                     </div>
@@ -351,13 +420,21 @@ export default function TechStackCloud({
                                                     key={day.date}
                                                     type="button"
                                                     aria-label={ariaText}
+                                                    ref={(el) => {
+                                                        const k = `${colIdx},${rowIdx}`;
+                                                        if (el) cellRefs.current.set(k, el);
+                                                        else cellRefs.current.delete(k);
+                                                    }}
+                                                    tabIndex={tabbableKey === `${colIdx},${rowIdx}` ? 0 : -1}
+                                                    onKeyDown={(e) => moveFocus(e, colIdx, rowIdx)}
                                                     onMouseEnter={(e) =>
                                                         handleCellActivate(e, day, rowIdx)
                                                     }
                                                     onMouseLeave={() => setTooltip(null)}
-                                                    onFocus={(e) =>
-                                                        handleCellActivate(e, day, rowIdx)
-                                                    }
+                                                    onFocus={(e) => {
+                                                        setActiveCell(`${colIdx},${rowIdx}`);
+                                                        handleCellActivate(e, day, rowIdx);
+                                                    }}
                                                     onBlur={() => setTooltip(null)}
                                                     onClick={(e) =>
                                                         handleCellActivate(e, day, rowIdx)
@@ -370,6 +447,13 @@ export default function TechStackCloud({
                                 ))}
                             </div>
                         </div>
+                    </div>
+
+                    <p className="md:hidden mt-2 text-[11px] font-medium text-neutral-600">
+                        Swipe to see more weeks
+                    </p>
+                    <div aria-live="polite" className="sr-only">
+                        {tooltip ? formatContributionLabel(tooltip.day) : ""}
                     </div>
 
                     {/* Floating Native React/Tailwind Tooltip */}

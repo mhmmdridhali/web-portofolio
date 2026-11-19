@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, animate, useInView } from "framer-motion";
+import { motion, animate, useInView, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -84,25 +84,41 @@ interface TraitBarProps {
 
 const TraitBar = ({ leftLabel, rightLabel, percent, color }: TraitBarProps) => {
     const rowRef = useRef<HTMLDivElement>(null);
+    const leftValueRef = useRef<HTMLSpanElement>(null);
+    const rightValueRef = useRef<HTMLSpanElement>(null);
     const isInView = useInView(rowRef, { once: true, margin: "-20px" });
-    const [displayPercent, setDisplayPercent] = useState(0);
+    const prefersReducedMotion = useReducedMotion();
     const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
         if (!isInView) return;
+
+        if (prefersReducedMotion) {
+            if (leftValueRef.current) leftValueRef.current.textContent = `${percent}%`;
+            if (rightValueRef.current)
+                rightValueRef.current.textContent = `${100 - percent}%`;
+            return;
+        }
+
         const controls = animate(0, percent, {
             duration: 1.15,
             ease: [0.16, 1, 0.3, 1],
-            onUpdate: (latest) => setDisplayPercent(Math.round(latest)),
+            onUpdate: (latest) => {
+                const rounded = Math.round(latest);
+                if (leftValueRef.current) {
+                    leftValueRef.current.textContent = `${rounded}%`;
+                }
+                if (rightValueRef.current) {
+                    rightValueRef.current.textContent = `${100 - rounded}%`;
+                }
+            },
         });
         return () => controls.stop();
-    }, [isInView, percent]);
+    }, [isInView, percent, prefersReducedMotion]);
 
     const leftDominant = percent >= 50;
-    const activeWidth = isInView
-        ? isHovered
-            ? Math.min(96, percent + 2)
-            : percent
+    const activeScale = isInView
+        ? (isHovered ? Math.min(96, percent + 2) : percent) / 100
         : 0;
 
     return (
@@ -116,7 +132,7 @@ const TraitBar = ({ leftLabel, rightLabel, percent, color }: TraitBarProps) => {
             {/* Labels */}
             <div className="flex justify-between text-xs font-bold mb-2 tracking-wider uppercase">
                 <span
-                    className={`transition-all duration-300 ${
+                    className={`transition-[transform,opacity,color] duration-300 ${
                         leftDominant
                             ? "text-black group-hover:translate-x-0.5"
                             : "text-neutral-500 font-medium group-hover:opacity-45"
@@ -125,7 +141,7 @@ const TraitBar = ({ leftLabel, rightLabel, percent, color }: TraitBarProps) => {
                     {leftLabel}
                 </span>
                 <span
-                    className={`transition-all duration-300 ${
+                    className={`transition-[transform,opacity,color] duration-300 ${
                         !leftDominant
                             ? "text-black group-hover:-translate-x-0.5"
                             : "text-neutral-500 font-medium group-hover:opacity-45"
@@ -135,36 +151,44 @@ const TraitBar = ({ leftLabel, rightLabel, percent, color }: TraitBarProps) => {
                 </span>
             </div>
 
-            {/* Split-Pole Tug Track */}
-            <div className="flex items-center gap-1 w-full h-2 group-hover:h-3 transition-all duration-300">
+            {/* Split-Pole Tug Track (GPU-composited scaleX, no layout thrashing) */}
+            <div className="relative w-full h-2.5 rounded-full bg-neutral-200 group-hover:bg-neutral-200/70 overflow-hidden transition-colors duration-300">
                 <motion.div
-                    initial={{ width: "0%" }}
-                    animate={{ width: `${activeWidth}%` }}
-                    transition={{ duration: isHovered ? 0.25 : 1.15, ease: [0.16, 1, 0.3, 1] }}
-                    className={`h-full rounded-full transition-colors duration-300 ${color} group-hover:bg-black`}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: activeScale }}
+                    transition={
+                        prefersReducedMotion
+                            ? { duration: 0 }
+                            : {
+                                  duration: isHovered ? 0.25 : 1.15,
+                                  ease: [0.16, 1, 0.3, 1],
+                              }
+                    }
+                    className={`h-full w-full origin-left rounded-full transition-colors duration-300 ${color} group-hover:bg-black`}
                 />
-                <div className="h-full flex-grow bg-neutral-200 group-hover:bg-neutral-200/70 rounded-full transition-colors duration-300" />
             </div>
 
-            {/* Count-Up Percentages */}
+            {/* Count-Up Percentages (updated via DOM ref to avoid 60fps React re-renders) */}
             <div className="flex justify-between text-xs mt-1.5 font-mono tabular-nums">
                 <span
+                    ref={leftValueRef}
                     className={`transition-opacity duration-300 ${
                         leftDominant
                             ? "text-neutral-900 font-bold"
                             : "text-neutral-500 group-hover:opacity-45"
                     }`}
                 >
-                    {displayPercent}%
+                    0%
                 </span>
                 <span
+                    ref={rightValueRef}
                     className={`transition-opacity duration-300 ${
                         !leftDominant
                             ? "text-neutral-900 font-bold"
                             : "text-neutral-500 group-hover:opacity-45"
                     }`}
                 >
-                    {isInView ? 100 - displayPercent : 0}%
+                    0%
                 </span>
             </div>
         </motion.div>
@@ -172,6 +196,10 @@ const TraitBar = ({ leftLabel, rightLabel, percent, color }: TraitBarProps) => {
 };
 
 export default function AboutPageClient() {
+    const characterRef = useRef<HTMLDivElement>(null);
+    const isCharacterInView = useInView(characterRef, { margin: "50px" });
+    const prefersReducedMotion = useReducedMotion();
+
     return (
         <div className="pt-28 pb-24">
             {/* Hero Banner */}
@@ -356,6 +384,7 @@ export default function AboutPageClient() {
                             </motion.div>
                         </div>
                         <motion.div
+                            ref={characterRef}
                             variants={fadeUp}
                             className="md:col-span-4 flex flex-col items-center justify-center order-first md:order-last"
                         >
@@ -366,14 +395,30 @@ export default function AboutPageClient() {
                                 height={256}
                                 loading="lazy"
                                 className="w-48 md:w-64 h-auto drop-shadow-2xl cursor-pointer"
-                                animate={{ y: [0, -14, 0] }}
-                                transition={{
-                                    repeat: Infinity,
-                                    duration: 4,
-                                    ease: "easeInOut",
-                                }}
-                                whileHover={{ scale: 1.05, rotate: 3 }}
-                                whileTap={{ scale: 0.95 }}
+                                animate={
+                                    isCharacterInView && !prefersReducedMotion
+                                        ? { y: [0, -14, 0] }
+                                        : { y: 0 }
+                                }
+                                transition={
+                                    isCharacterInView && !prefersReducedMotion
+                                        ? {
+                                              repeat: Infinity,
+                                              duration: 4,
+                                              ease: "easeInOut",
+                                          }
+                                        : { duration: 0.2 }
+                                }
+                                whileHover={
+                                    prefersReducedMotion
+                                        ? undefined
+                                        : { scale: 1.05, rotate: 3 }
+                                }
+                                whileTap={
+                                    prefersReducedMotion
+                                        ? undefined
+                                        : { scale: 0.95 }
+                                }
                             />
                         </motion.div>
                     </div>

@@ -2,13 +2,24 @@ import type { Metadata } from "next";
 import ExperiencePageClient from "./ExperiencePageClient";
 
 export const metadata: Metadata = {
-    title: "Experience | Muhammad Ali Ridho",
+    title: "Experience",
     description:
-        "Explore the career journey of Muhammad Ali Ridho — from academic organizations to professional data roles, a path of continuous growth and leadership.",
+        "Career journey of Muhammad Ali Ridho — from campus leadership and math tutoring to building data tools and automation systems in the public sector.",
+    alternates: {
+        canonical: "/experience",
+    },
     openGraph: {
         title: "Experience | Muhammad Ali Ridho",
         description:
-            "Career Journey — Professional experience, leadership roles, and technical mastery.",
+            "Professional experience, campus leadership, and data management workflows across public and academic sectors.",
+        url: "/experience",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Experience | Muhammad Ali Ridho",
+        description:
+            "Professional experience, campus leadership, and data management workflows across public and academic sectors.",
     },
 };
 

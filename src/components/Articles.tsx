@@ -69,9 +69,9 @@ function ArticleCard({ article }: { article: MediumArticle }) {
                 )}
             </div>
             <div className="p-5 flex flex-col flex-grow">
-                <h4 className="font-bold text-sm leading-snug group-hover:text-neutral-600 transition-colors line-clamp-2 mb-3">
+                <h3 className="font-bold text-sm leading-snug group-hover:text-neutral-600 transition-colors line-clamp-2 mb-3">
                     {article.title}
-                </h4>
+                </h3>
                 <div className="mt-auto flex items-center justify-between pt-3 border-t border-neutral-100">
                     <span className="text-xs text-neutral-500 tabular-nums">
                         {article.pubDate}
@@ -228,9 +228,9 @@ export default function Articles() {
                 className="mb-12"
             >
                 <motion.div variants={fadeUp}>
-                    <h3 className="text-3xl font-bold tracking-tight">
+                    <h2 className="text-3xl font-bold tracking-tight">
                         Medium Articles
-                    </h3>
+                    </h2>
                     <p className="text-neutral-600 mt-2 max-w-xl text-left md:text-justify">
                         A quiet corner for my thoughts, where complaints, memories, and
                         random musings find their voice in words.
@@ -266,9 +266,9 @@ export default function Articles() {
                     <div className="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center mb-4">
                         <PenLine className="w-6 h-6 text-black" />
                     </div>
-                    <h4 className="text-xl font-bold mb-3">
+                    <h3 className="text-xl font-bold mb-3">
                         Read my articles on Medium
-                    </h4>
+                    </h3>
                     <p className="text-neutral-600 max-w-md mx-auto mb-6">
                         Visit my Medium profile to explore insights on data,
                         automation, and efficiency.

@@ -1,8 +1,15 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
-import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
+import {
+    motion,
+    useMotionValue,
+    useAnimationFrame,
+    useInView,
+    useReducedMotion,
+} from "framer-motion";
 import { PenLine, Search } from "lucide-react";
+import type { MediumFeedData, MediumItem } from "@/lib/medium";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 24 },
@@ -29,12 +36,28 @@ interface MediumArticle {
     categories: string[];
 }
 
-const IMG_SRC_PATTERN = new RegExp("<" + "img[^>]+src=[\"']([^\"']+)[\"']", "i");
+const DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+});
 
-function extractThumbnail(thumbnail: string, descriptionHtml: string): string {
-    if (thumbnail) return thumbnail;
-    const match = descriptionHtml.match(IMG_SRC_PATTERN);
-    return match ? match[1] : "";
+function formatPubDate(raw: string): string {
+    const parsed = new Date(raw);
+    if (Number.isNaN(parsed.getTime())) return "";
+    return DATE_FORMATTER.format(parsed);
+}
+
+function mapRawArticles(items: RawMediumItem[]): MediumArticle[] {
+    return items.map((item) => ({
+        title: item.title,
+        link: item.link,
+        thumbnail: item.thumbnail || "",
+        pubDate: formatPubDate(item.pubDate),
+        pubDateRaw: new Date(item.pubDate).getTime() || 0,
+        categories: item.categories || [],
+    }));
 }
 
 const ARTICLES_PER_PAGE = 6;
@@ -137,28 +160,41 @@ function ArticleCard({
 }
 
 /* ─── Marquee Track ─── */
+const MARQUEE_PX_PER_SECOND = 30;
+
 function MarqueeTrack({ articles }: { articles: MediumArticle[] }) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(containerRef, { margin: "50px" });
+    const prefersReducedMotion = useReducedMotion();
     const x = useMotionValue(0);
     const isPaused = useRef(false);
-    const prefersReducedMotion = useRef(false);
     const pauseTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const totalWidth = articles.length * (CARD_WIDTH + CARD_GAP);
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            prefersReducedMotion.current = window.matchMedia(
-                "(prefers-reduced-motion: reduce)"
-            ).matches;
-        }
+        return () => {
+            if (pauseTimeout.current) clearTimeout(pauseTimeout.current);
+        };
     }, []);
 
     // Triple for seamless loop
-    const tripled = [...articles, ...articles, ...articles];
+    const tripled = useMemo(
+        () => [...articles, ...articles, ...articles],
+        [articles]
+    );
 
-    useAnimationFrame(() => {
-        if (isPaused.current || prefersReducedMotion.current) return;
+    useAnimationFrame((_time, delta) => {
+        if (
+            isPaused.current ||
+            prefersReducedMotion ||
+            !isInView ||
+            totalWidth <= 0
+        ) {
+            return;
+        }
+        const clampedDelta = Math.min(delta, 50);
         const current = x.get();
-        const next = current - 0.5;
+        const next = current - (MARQUEE_PX_PER_SECOND * clampedDelta) / 1000;
         x.set(next <= -totalWidth ? 0 : next);
     });
 
@@ -179,6 +215,7 @@ function MarqueeTrack({ articles }: { articles: MediumArticle[] }) {
 
     return (
         <div
+            ref={containerRef}
             className="relative overflow-hidden py-4 -mx-6 px-6"
             onMouseEnter={() => (isPaused.current = true)}
             onMouseLeave={() => {
@@ -220,19 +257,36 @@ function MarqueeTrack({ articles }: { articles: MediumArticle[] }) {
     );
 }
 
-interface RawMediumItem {
-    title: string;
-    link: string;
+type RawMediumItem = Pick<
+    MediumItem,
+    "title" | "link" | "pubDate"
+> & {
     thumbnail?: string;
     description?: string;
-    pubDate: string;
     categories?: string[];
-}
+};
 
-export default function ArticlesPageClient() {
-    const [recentArticles, setRecentArticles] = useState<MediumArticle[]>([]);
-    const [libraryArticles, setLibraryArticles] = useState<MediumArticle[]>([]);
-    const [loading, setLoading] = useState(true);
+export default function ArticlesPageClient({
+    initialArticles,
+}: {
+    initialArticles?: MediumFeedData;
+}) {
+    const hasInitialData = Boolean(
+        initialArticles &&
+            (initialArticles.recent.length > 0 ||
+                initialArticles.library.length > 0)
+    );
+
+    const [recentArticles, setRecentArticles] = useState<MediumArticle[]>(() =>
+        initialArticles?.recent ? mapRawArticles(initialArticles.recent) : []
+    );
+    const [libraryArticles, setLibraryArticles] = useState<MediumArticle[]>(
+        () =>
+            initialArticles?.library
+                ? mapRawArticles(initialArticles.library)
+                : []
+    );
+    const [loading, setLoading] = useState(!hasInitialData);
     const [error, setError] = useState(false);
 
     // Filters & sorting for Library section
@@ -241,38 +295,40 @@ export default function ArticlesPageClient() {
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        fetch("/api/medium")
-            .then((res) => res.json())
+        if (hasInitialData) return;
+
+        const controller = new AbortController();
+
+        fetch("/api/medium", { signal: controller.signal })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Medium API returned ${res.status}`);
+                }
+                return res.json();
+            })
             .then((data) => {
                 if (data.status === "ok") {
-                    const mapArticles = (items: RawMediumItem[]) =>
-                        items.map((item) => ({
-                            title: item.title,
-                            link: item.link,
-                            thumbnail: extractThumbnail(
-                                item.thumbnail || "",
-                                item.description || ""
-                            ),
-                            pubDate: new Date(item.pubDate).toLocaleDateString(
-                                "en-US",
-                                { month: "short", day: "numeric", year: "numeric" }
-                            ),
-                            pubDateRaw: new Date(item.pubDate).getTime(),
-                            categories: item.categories || [],
-                        }));
-
-                    if (data.recent) setRecentArticles(mapArticles(data.recent));
-                    if (data.library) setLibraryArticles(mapArticles(data.library));
+                    if (Array.isArray(data.recent)) {
+                        setRecentArticles(mapRawArticles(data.recent));
+                    }
+                    if (Array.isArray(data.library)) {
+                        setLibraryArticles(mapRawArticles(data.library));
+                    }
                 } else {
                     setError(true);
                 }
                 setLoading(false);
             })
-            .catch(() => {
+            .catch((err) => {
+                if (err instanceof DOMException && err.name === "AbortError") {
+                    return;
+                }
                 setError(true);
                 setLoading(false);
             });
-    }, []);
+
+        return () => controller.abort();
+    }, [hasInitialData]);
 
     // Collect all unique categories from library
     const allCategories = useMemo(() => {

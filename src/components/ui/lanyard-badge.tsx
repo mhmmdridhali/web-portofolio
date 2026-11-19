@@ -506,6 +506,7 @@ export default function LanyardBadge({
         const flip = () => {
             spinTarget = spinTarget === 0 ? Math.PI : 0;
             setShowBack(spinTarget !== 0);
+            wake();
         };
         flipRef.current = flip;
 
@@ -525,6 +526,7 @@ export default function LanyardBadge({
             };
             pts[iT].w = 0;
             setIsDragging(true);
+            wake();
             try {
                 card.setPointerCapture(e.pointerId);
             } catch {
@@ -561,14 +563,25 @@ export default function LanyardBadge({
         let acc = 0;
         let last = performance.now();
         let t = 0;
+        let settleT = 0;
+        const wake = () => {
+            settleT = 0;
+            if (!raf && visible && !document.hidden) {
+                last = performance.now();
+                raf = requestAnimationFrame(tick);
+            }
+        };
 
         const tick = (now: number) => {
             if (!visible || document.hidden) {
                 raf = 0;
                 return;
             }
-            acc += Math.min(0.05, (now - last) / 1000);
+            const dt = Math.min(0.05, (now - last) / 1000);
+            acc += dt;
             last = now;
+            if (reduced && !drag) settleT += dt;
+            else settleT = 0;
             let steps = 0;
             while (acc >= STEP && steps < 8) {
                 acc -= STEP;
@@ -600,6 +613,10 @@ export default function LanyardBadge({
             }
             draw();
             place();
+            if (reduced && !drag && settleT > 3) {
+                raf = 0; // settled: static render until drag/flip wakes the loop
+                return;
+            }
             raf = requestAnimationFrame(tick);
         };
 
@@ -714,7 +731,7 @@ export default function LanyardBadge({
                 ref={cardRef}
                 role="button"
                 tabIndex={0}
-                aria-label="Kartu ASN Virtual Lanyard. Drag to swing, press or tap to flip."
+                aria-label="Virtual ASN ID Badge Lanyard. Drag to swing, or press Enter to flip."
                 onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
@@ -722,7 +739,7 @@ export default function LanyardBadge({
                     }
                 }}
                 aria-pressed={showBack}
-                className="absolute left-0 top-0 outline-none focus-visible:ring-2 focus-visible:ring-black rounded-2xl touch-pan-y md:touch-none"
+                className="absolute left-0 top-0 outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 rounded-2xl touch-pan-y md:touch-none"
                 style={{
                     width: cw,
                     height: ch + ringR + clipH,

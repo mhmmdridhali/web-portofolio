@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, RotateCw } from "lucide-react";
 import Link from "next/link";
 import TechStackCloud from "@/components/ui/tech-stack-cloud";
@@ -43,6 +43,7 @@ const ISTJ_TRAITS = [
 export default function About() {
     const [isFlipped, setIsFlipped] = React.useState(false);
     const [quoteIndex, setQuoteIndex] = React.useState(0);
+    const reduceMotion = useReducedMotion();
 
     const handleCardFlip = () => {
         setIsFlipped((prev) => !prev);
@@ -65,13 +66,14 @@ export default function About() {
                 <div style={{ perspective: "1600px" }}>
                     <motion.div
                         animate={{ rotateY: isFlipped ? 180 : 0 }}
-                        transition={{ duration: 1.05, ease: [0.45, 0.05, 0.25, 1] }}
+                        transition={{ duration: reduceMotion ? 0 : 1.05, ease: [0.45, 0.05, 0.25, 1] }}
                         style={{ transformStyle: "preserve-3d", willChange: "transform" }}
                         className="relative grid grid-cols-1 w-full rounded-[3rem]"
                     >
                         {/* FRONT FACE: About Me (Light Surface + Graph-Paper Accent) */}
                         <div
                             aria-hidden={isFlipped}
+                            inert={isFlipped}
                             style={{
                                 backfaceVisibility: "hidden",
                                 WebkitBackfaceVisibility: "hidden",
@@ -103,26 +105,26 @@ export default function About() {
 
                             {/* Left Column: Heading + 3 Minimalist Factual Metadata Rows */}
                             <div className="md:col-span-4 relative z-10 pr-14 md:pr-0">
-                                <h3 className="text-3xl font-bold tracking-tight text-black">
+                                <h2 className="text-3xl font-bold tracking-tight text-black">
                                     About Me
-                                </h3>
+                                </h2>
                                 <div className="w-12 h-1 bg-black mt-4" />
 
                                 <dl className="mt-8 pt-6 border-t border-neutral-200/80 space-y-5">
                                     <div>
-                                        <dt className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                                        <dt className="text-[11px] font-bold uppercase tracking-wider text-neutral-600">
                                             Education
                                         </dt>
                                         <dd className="text-sm font-semibold text-black mt-0.5">
                                             B.Ed. in Mathematics
                                         </dd>
-                                        <dd className="text-xs text-neutral-500 mt-0.5">
+                                        <dd className="text-xs text-neutral-600 mt-0.5">
                                             Universitas Lambung Mangkurat
                                         </dd>
                                     </div>
 
                                     <div>
-                                        <dt className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                                        <dt className="text-[11px] font-bold uppercase tracking-wider text-neutral-600">
                                             Location
                                         </dt>
                                         <dd className="text-sm font-semibold text-black mt-0.5">
@@ -131,7 +133,7 @@ export default function About() {
                                     </div>
 
                                     <div>
-                                        <dt className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                                        <dt className="text-[11px] font-bold uppercase tracking-wider text-neutral-600">
                                             Writing
                                         </dt>
                                         <dd className="mt-0.5">
@@ -201,6 +203,7 @@ export default function About() {
                         {/* BACK FACE: ISTJ-A | The Logistician (Dark Editorial) */}
                         <div
                             aria-hidden={!isFlipped}
+                            inert={!isFlipped}
                             style={{
                                 backfaceVisibility: "hidden",
                                 WebkitBackfaceVisibility: "hidden",
@@ -334,8 +337,8 @@ export default function About() {
                                         height={256}
                                         loading="lazy"
                                         className="w-40 md:w-52 h-auto drop-shadow-2xl select-none"
-                                        animate={{ y: [0, -10, 0] }}
-                                        transition={{
+                                        animate={reduceMotion ? { y: 0 } : { y: [0, -10, 0] }}
+                                        transition={reduceMotion ? { duration: 0 } : {
                                             repeat: Infinity,
                                             duration: 4,
                                             ease: "easeInOut",
@@ -358,12 +361,12 @@ export default function About() {
                 variants={staggerContainer}
                 className="max-w-6xl mx-auto mt-20"
             >
-                <motion.h3
+                <motion.h2
                     variants={fadeUp}
                     className="text-3xl font-bold tracking-tight mb-3 text-center md:text-left"
                 >
                     Tech Stack
-                </motion.h3>
+                </motion.h2>
                 <motion.div
                     variants={fadeUp}
                     className="w-12 h-1 bg-black mb-10 mx-auto md:mx-0"

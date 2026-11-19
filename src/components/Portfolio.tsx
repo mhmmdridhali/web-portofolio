@@ -54,12 +54,12 @@ export default function Portfolio() {
                     variants={staggerContainer}
                     className="mb-16 text-center"
                 >
-                    <motion.h3
+                    <motion.h2
                         variants={fadeUp}
                         className="text-3xl font-bold tracking-tight"
                     >
                         Portfolio Gallery
-                    </motion.h3>
+                    </motion.h2>
                     <motion.p variants={fadeUp} className="text-neutral-600 mt-4">
                         Click any project card to explore its architecture, workflow &amp; impact
                     </motion.p>
@@ -104,9 +104,9 @@ export default function Portfolio() {
                                 <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-400 mb-3 block">
                                     {featuredMain.category} Project
                                 </span>
-                                <h4 className="text-xl md:text-2xl font-bold mb-3 leading-tight group-hover:translate-x-1 transition-transform">
+                                <h3 className="text-xl md:text-2xl font-bold mb-3 leading-tight group-hover:translate-x-1 transition-transform">
                                     {featuredMain.shortTitle}
-                                </h4>
+                                </h3>
                                 <p className="text-neutral-300 text-sm leading-relaxed mb-5 text-left md:text-justify">
                                     {featuredMain.description}
                                 </p>
@@ -178,9 +178,9 @@ export default function Portfolio() {
                                 <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-2 block">
                                     {rightTop.category}
                                 </span>
-                                <h4 className="text-lg font-bold mb-1.5 text-black group-hover:translate-x-0.5 transition-transform">
+                                <h3 className="text-lg font-bold mb-1.5 text-black group-hover:translate-x-0.5 transition-transform">
                                     {rightTop.shortTitle}
-                                </h4>
+                                </h3>
                                 <p className="text-neutral-600 text-xs leading-relaxed mb-4">
                                     {rightTop.bentoSummary}
                                 </p>
@@ -233,9 +233,9 @@ export default function Portfolio() {
                                 <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-2 block">
                                     {rightBottom.category}
                                 </span>
-                                <h4 className="text-lg font-bold mb-1.5 text-black group-hover:translate-x-0.5 transition-transform">
+                                <h3 className="text-lg font-bold mb-1.5 text-black group-hover:translate-x-0.5 transition-transform">
                                     {rightBottom.shortTitle}
-                                </h4>
+                                </h3>
                                 <p className="text-neutral-600 text-xs leading-relaxed mb-4">
                                     {rightBottom.bentoSummary}
                                 </p>
@@ -276,9 +276,9 @@ export default function Portfolio() {
                                 <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-2 block">
                                     {bottomLeft.category}
                                 </span>
-                                <h4 className="text-lg font-bold mb-1.5 text-black group-hover:translate-x-0.5 transition-transform">
+                                <h3 className="text-lg font-bold mb-1.5 text-black group-hover:translate-x-0.5 transition-transform">
                                     {bottomLeft.shortTitle}
-                                </h4>
+                                </h3>
                                 <p className="text-neutral-600 text-xs leading-relaxed mb-4">
                                     {bottomLeft.bentoSummary}
                                 </p>
@@ -331,9 +331,9 @@ export default function Portfolio() {
                                 <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-2 block">
                                     {bottomRight.category}
                                 </span>
-                                <h4 className="text-lg font-bold mb-1.5 text-black group-hover:translate-x-0.5 transition-transform">
+                                <h3 className="text-lg font-bold mb-1.5 text-black group-hover:translate-x-0.5 transition-transform">
                                     {bottomRight.shortTitle}
-                                </h4>
+                                </h3>
                                 <p className="text-neutral-600 text-xs leading-relaxed mb-4">
                                     {bottomRight.bentoSummary}
                                 </p>

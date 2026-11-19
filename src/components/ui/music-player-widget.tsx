@@ -1296,7 +1296,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
   return (
     <aside
       aria-label="Music Corner Player"
-      className="fixed bottom-5 right-5 z-40 flex flex-col items-end select-none"
+      className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-5 z-40 flex flex-col items-end select-none"
     >
       {/* Persistent Audio Element so playback never interrupts on collapse/expand */}
       <audio
@@ -1308,7 +1308,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
       {/* Expanded Full Widget Card */}
       <div
         ref={cardRef}
-        aria-hidden={!isExpanded}
+        inert={!isExpanded}
         className={`absolute bottom-0 right-0 w-[calc(100vw-2.5rem)] max-w-[384px] rounded-3xl bg-white border border-neutral-200 shadow-2xl overflow-hidden origin-bottom-right transition-[transform,opacity] duration-300 ease-out ${
           isExpanded
             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
@@ -1335,7 +1335,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
               onClick={() => setShowQueue((q) => !q)}
               aria-label="Toggle playlist queue"
               title="Playlist Queue"
-              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-colors cursor-pointer ${
+              className={`inline-flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] px-2.5 py-1 rounded-full text-[11px] font-semibold transition-colors cursor-pointer ${
                 showQueue
                   ? "bg-black text-white"
                   : "text-neutral-600 hover:text-black hover:bg-neutral-200/60"
@@ -1351,7 +1351,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
               rel="noopener noreferrer"
               aria-label={`Open ${activePlaylist.name} on Spotify`}
               title={`Open ${activePlaylist.name} on Spotify`}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold text-neutral-600 hover:text-black hover:bg-neutral-200/60 transition-colors"
+              className="inline-flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] px-2.5 py-1 rounded-full text-[11px] font-semibold text-neutral-600 hover:text-black hover:bg-neutral-200/60 transition-colors"
             >
               <span>Spotify</span>
               <ExternalLink className="w-3 h-3" />
@@ -1362,7 +1362,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
               onClick={() => setIsExpanded(false)}
               aria-label="Minimize Music Corner"
               title="Minimize"
-              className="p-1.5 rounded-full text-neutral-500 hover:text-black hover:bg-neutral-200/60 transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full text-neutral-600 hover:text-black hover:bg-neutral-200/60 transition-colors cursor-pointer"
             >
               <ChevronDown className="w-4 h-4" />
             </button>
@@ -1379,7 +1379,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
                   key={pl.key}
                   type="button"
                   onClick={() => setActiveKey(pl.key)}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
+                  className={`px-3 py-1 min-h-[44px] rounded-full text-xs font-semibold transition-colors cursor-pointer ${
                     isSelected
                       ? "bg-black text-white shadow-sm"
                       : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200/80 hover:text-black"
@@ -1393,7 +1393,23 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
         </div>
 
         {/* 21st.dev Vinyl & ScalesMixer Audio Player */}
-        <MusicPlayerBody
+        {!currentTrack && (
+          <div className="flex items-center gap-3 px-4 py-6" role="status">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={activePlaylist.playlistCover}
+              alt=""
+              className="w-16 h-16 rounded-2xl object-cover"
+            />
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-black truncate">
+                {activePlaylist.name}
+              </p>
+              <p className="text-xs text-neutral-600">Loading tracks…</p>
+            </div>
+          </div>
+        )}
+        {currentTrack && <MusicPlayerBody
           tracks={tracks}
           state={state}
           currentTrack={currentTrack}
@@ -1410,7 +1426,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
           getFrequencyData={getFrequencyData}
           shortcutsEnabled={isExpanded}
           active={isExpanded}
-        />
+        />}
 
         {/* Collapsible Playlist Queue Drawer */}
         {showQueue && (
@@ -1444,7 +1460,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
                     </p>
                     <p
                       className={`text-[11px] truncate ${
-                        isCurrent ? "text-neutral-300" : "text-neutral-500"
+                        isCurrent ? "text-neutral-300" : "text-neutral-600"
                       }`}
                     >
                       {t.artist}
@@ -1452,7 +1468,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
                   </div>
                   <span
                     className={`text-[11px] font-semibold tabular-nums shrink-0 ${
-                      isCurrent ? "text-neutral-300" : "text-neutral-500"
+                      isCurrent ? "text-neutral-300" : "text-neutral-600"
                     }`}
                   >
                     {isCurrent && state.isPlaying ? "Playing" : `#${idx + 1}`}
@@ -1466,67 +1482,66 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
 
       {/* Collapsed Floating Mini-Vinyl Pill */}
       <div
-        role="button"
-        tabIndex={isExpanded ? -1 : 0}
-        aria-hidden={isExpanded}
-        aria-label="Expand Music Corner player"
-        onClick={() => setIsExpanded(true)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            setIsExpanded(true);
-          }
-        }}
-        className={`w-[244px] flex items-center gap-2.5 p-1.5 pr-2 rounded-full bg-white/95 backdrop-blur-md border border-neutral-200 shadow-xl origin-bottom-right cursor-pointer transition-[transform,opacity] duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
+        inert={isExpanded}
+        className={`w-[244px] flex items-center rounded-full bg-white/95 backdrop-blur-md border border-neutral-200 shadow-xl origin-bottom-right transition-[transform,opacity] duration-300 ease-out ${
           isExpanded
             ? "opacity-0 scale-90 translate-y-2 pointer-events-none"
             : "opacity-100 scale-100 translate-y-0 pointer-events-auto"
         }`}
       >
-        {/* Spinning Mini Vinyl Thumbnail */}
-        <div className="relative w-10 h-10 rounded-full overflow-hidden bg-black shrink-0 shadow-md">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={currentTrack.cover}
-            alt={currentTrack.title}
-            className={`w-full h-full object-cover ${
-              state.isPlaying ? "animate-spin" : ""
-            }`}
-            style={{ animationDuration: "6s" }}
-          />
-          <span className="absolute inset-0 m-auto w-2.5 h-2.5 rounded-full bg-white border border-black/40" />
-        </div>
+        {/* Expand trigger (sibling of play button, not nested) */}
+        <button
+          type="button"
+          onClick={() => setIsExpanded(true)}
+          aria-label="Expand Music Corner player"
+          className="flex flex-1 min-w-0 min-h-[44px] items-center gap-2.5 p-1.5 pl-1.5 rounded-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+        >
+          {/* Spinning Mini Vinyl Thumbnail */}
+          <span className="relative block w-10 h-10 rounded-full overflow-hidden bg-black shrink-0 shadow-md">
+            {currentTrack?.cover ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={currentTrack.cover}
+                alt=""
+                className={`w-full h-full object-cover ${
+                  state.isPlaying ? "animate-spin" : ""
+                }`}
+                style={{ animationDuration: "6s" }}
+              />
+            ) : activePlaylist.playlistCover ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={activePlaylist.playlistCover}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            ) : null}
+            <span className="absolute inset-0 m-auto w-2.5 h-2.5 rounded-full bg-white border border-black/40" />
+          </span>
 
-        {/* Track Meta */}
-        <div className="text-left min-w-0 flex-1">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 truncate leading-tight">
-            {activePlaylist.name}
-          </p>
-          <p className="text-xs font-bold text-black truncate leading-tight">
-            {currentTrack.title}
-          </p>
-        </div>
+          {/* Track Meta */}
+          <span className="block text-left min-w-0 flex-1">
+            <span className="block text-[11px] font-semibold uppercase tracking-wider text-neutral-600 truncate leading-tight">
+              {activePlaylist.name}
+            </span>
+            <span className="block text-xs font-bold text-black truncate leading-tight">
+              {currentTrack?.title ?? "Loading…"}
+            </span>
+          </span>
+        </button>
 
         {/* Quick Play / Pause Button */}
         <button
           type="button"
-          tabIndex={isExpanded ? -1 : 0}
-          onClick={(e) => {
-            e.stopPropagation();
-            toggle();
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.stopPropagation();
-            }
-          }}
+          disabled={!currentTrack}
+          onClick={() => toggle()}
           aria-label={state.isPlaying ? "Pause music" : "Play music"}
-          className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center hover:bg-neutral-800 transition-transform duration-200 hover:scale-105 active:scale-95 shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+          className="relative w-11 h-11 mr-1 rounded-full bg-black text-white flex items-center justify-center hover:bg-neutral-800 transition-transform duration-200 hover:scale-105 active:scale-95 shrink-0 cursor-pointer disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
         >
           {state.isPlaying ? (
-            <Pause className="w-3.5 h-3.5 fill-current" />
+            <Pause className="w-4 h-4 fill-current" />
           ) : (
-            <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+            <Play className="w-4 h-4 fill-current ml-0.5" />
           )}
         </button>
       </div>

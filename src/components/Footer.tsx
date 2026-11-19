@@ -513,6 +513,7 @@ export default function Footer() {
     const [play, setPlay] = React.useState(false);
     const [reduced, setReduced] = React.useState(false);
     const [talking, setTalking] = React.useState(-1);
+    const [crewFocus, setCrewFocus] = React.useState(0);
     const [hopping, setHopping] = React.useState(-1);
 
     const rootRef = React.useRef<HTMLElement | null>(null);
@@ -1401,10 +1402,29 @@ export default function Footer() {
                                     height={(bottom - top) * p.scale}
                                     rx={12}
                                     role="button"
-                                    tabIndex={0}
-                                    aria-label={`${p.m.name}: ${p.m.says}`}
+                                    tabIndex={p.i === crewFocus ? 0 : -1}
+                                    aria-label={`${p.m.name}, press to make them talk`}
+                                    onFocus={() => setCrewFocus(p.i)}
                                     onClick={() => poke(p.i)}
                                     onKeyDown={(e) => {
+                                        if (
+                                            e.key === "ArrowLeft" ||
+                                            e.key === "ArrowRight"
+                                        ) {
+                                            e.preventDefault();
+                                            const hits = Array.from(
+                                                e.currentTarget.parentElement?.querySelectorAll<SVGRectElement>(
+                                                    "rect.dcf-hit"
+                                                ) ?? []
+                                            );
+                                            const at = hits.indexOf(e.currentTarget);
+                                            const step =
+                                                e.key === "ArrowRight"
+                                                    ? 1
+                                                    : hits.length - 1;
+                                            hits[(at + step) % hits.length]?.focus();
+                                            return;
+                                        }
                                         if (
                                             e.key === "Enter" ||
                                             e.key === " "
@@ -1503,7 +1523,7 @@ export default function Footer() {
                 <button
                     type="button"
                     onClick={scrollToTop}
-                    className="dcf-totop inline-flex items-center gap-2 min-h-[38px] px-4 py-1.5 rounded-full border border-neutral-700 hover:border-white text-xs font-semibold text-neutral-200 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    className="dcf-totop inline-flex items-center gap-2 min-h-[44px] px-4 py-1.5 rounded-full border border-neutral-700 hover:border-white text-xs font-semibold text-neutral-200 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 >
                     <span>Back to top</span>
                     <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">

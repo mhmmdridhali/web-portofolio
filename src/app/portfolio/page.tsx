@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getPortfolioPageJsonLd } from "@/lib/structured-data";
 import PortfolioPageClient from "./PortfolioPageClient";
 
 export const metadata: Metadata = {
@@ -24,5 +25,14 @@ export const metadata: Metadata = {
 };
 
 export default function PortfolioPage() {
-    return <PortfolioPageClient />;
+    const jsonLd = getPortfolioPageJsonLd();
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <PortfolioPageClient />
+        </>
+    );
 }

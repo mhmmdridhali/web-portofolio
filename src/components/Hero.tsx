@@ -7,16 +7,6 @@ import LanyardBadge from "@/components/ui/lanyard-badge";
 const QUOTE_TEXT =
     '"Less manual work, zero server bills, and tools people actually use."';
 
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.14,
-            delayChildren: 0.08,
-        },
-    },
-} as const;
-
 const fadeUpVariants = {
     hidden: { opacity: 0, y: 24 },
     visible: {
@@ -70,11 +60,12 @@ function TypewriterQuote() {
 
     return (
         <p
-            className={`relative text-lg md:text-xl lg:text-2xl font-medium italic text-neutral-700 leading-relaxed pl-6 md:pl-8 before:content-[''] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1 before:bg-black before:rounded-full${
-                !isDone ? " cursor" : ""
-            }`}
+            className="relative text-lg md:text-xl lg:text-2xl font-medium italic text-neutral-700 leading-relaxed pl-6 md:pl-8 before:content-[''] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1 before:bg-black before:rounded-full"
         >
-            {textToRender}
+            <span className="sr-only">{QUOTE_TEXT}</span>
+            <span aria-hidden="true" className={!isDone ? "cursor" : undefined}>
+                {textToRender}
+            </span>
         </p>
     );
 }
@@ -84,16 +75,13 @@ export default function Hero() {
         <section className="min-h-screen flex flex-col justify-center px-4 md:px-6 pt-24 max-w-6xl mx-auto overflow-hidden">
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 {/* Text Content */}
-                <motion.div
-                    className="order-2 md:order-1"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                >
+                <div className="order-2 md:order-1">
                     {/* Role Badge */}
                     <motion.div whileHover={{ scale: 1.02, y: -3 }}>
                         <motion.div
                             variants={fadeUpVariants}
+                            initial="hidden"
+                            animate="visible"
                             className="inline-block px-4 py-1.5 rounded-full border border-neutral-300 bg-white/85 backdrop-blur-md text-xs font-semibold tracking-widest uppercase mb-6 text-neutral-600 shadow-sm"
                         >
                             Statistician | Tech Enthusiast | Writer
@@ -101,18 +89,20 @@ export default function Hero() {
                     </motion.div>
 
                     {/* Main Name */}
-                    <motion.h1
-                        variants={fadeUpVariants}
-                        className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight"
-                    >
+                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
                         Muhammad <br />
                         <span className="text-neutral-400">Ali Ridho</span>
-                    </motion.h1>
+                    </h1>
 
-                    <motion.blockquote variants={fadeUpVariants} className="my-8 h-24 md:h-16">
+                    <motion.blockquote
+                        variants={fadeUpVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="my-8 h-24 md:h-16"
+                    >
                         <TypewriterQuote />
                     </motion.blockquote>
-                </motion.div>
+                </div>
 
                 {/* Ditjen Pendis & Kartu ASN Virtual Lanyard */}
                 <motion.div

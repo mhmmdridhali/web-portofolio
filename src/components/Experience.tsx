@@ -43,7 +43,7 @@ export default function Experience() {
                 </motion.p>
             </motion.div>
 
-            <ExperienceTimeline variant="compact" />
+            <ExperienceTimeline variant="compact" headingLevel="h3" />
 
             {/* CTA */}
             <motion.div

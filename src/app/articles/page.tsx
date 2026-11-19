@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getMediumArticles } from "@/lib/medium";
+import { getArticlesPageJsonLd } from "@/lib/structured-data";
 import ArticlesPageClient from "./ArticlesPageClient";
 
 export const revalidate = 3600;
@@ -27,5 +28,20 @@ export const metadata: Metadata = {
 
 export default async function ArticlesPage() {
     const initialArticles = await getMediumArticles();
-    return <ArticlesPageClient initialArticles={initialArticles} />;
+    const recentLinks = new Set(initialArticles.recent.map((item) => item.link));
+    const combined = [
+        ...initialArticles.recent,
+        ...initialArticles.library.filter((item) => !recentLinks.has(item.link)),
+    ].slice(0, 20);
+    const jsonLd = getArticlesPageJsonLd(combined);
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <ArticlesPageClient initialArticles={initialArticles} />
+        </>
+    );
 }

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, RotateCw } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import TechStackCloud from "@/components/ui/tech-stack-cloud";
 
@@ -235,12 +236,12 @@ export default function About() {
                             {/* Left Column: Header + Exact Copy + Compact Trait Bars */}
                             <div className="md:col-span-7 lg:col-span-8 relative z-10 flex flex-col justify-center order-last md:order-first">
                                 <div className="mb-5">
-                                    <h4 className="text-2xl md:text-3xl font-bold text-white">
+                                    <h3 className="text-2xl md:text-3xl font-bold text-white">
                                         ISTJ-A{" "}
                                         <span className="text-neutral-400 font-normal">
                                             | The Logistician
                                         </span>
-                                    </h4>
+                                    </h3>
                                     <div className="w-12 h-1 bg-white mt-3" />
                                 </div>
 
@@ -323,30 +324,39 @@ export default function About() {
                                     </AnimatePresence>
                                 </div>
 
-                                <button
+                                <motion.button
                                     type="button"
                                     tabIndex={isFlipped ? 0 : -1}
                                     onClick={handleCycleQuote}
                                     aria-label="Cycle ISTJ-A character inner monologue"
+                                    whileHover={reduceMotion ? undefined : { scale: 1.05, rotate: 3 }}
+                                    whileTap={reduceMotion ? undefined : { scale: 0.95 }}
                                     className="relative rounded-3xl cursor-pointer touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black"
                                 >
-                                    <motion.img
-                                        src="/mbti_character.webp"
-                                        alt="ISTJ-A Character"
-                                        width={256}
-                                        height={256}
-                                        loading="lazy"
-                                        className="w-40 md:w-52 h-auto drop-shadow-2xl select-none"
-                                        animate={reduceMotion ? { y: 0 } : { y: [0, -10, 0] }}
-                                        transition={reduceMotion ? { duration: 0 } : {
-                                            repeat: Infinity,
-                                            duration: 4,
-                                            ease: "easeInOut",
-                                        }}
-                                        whileHover={{ scale: 1.05, rotate: 3 }}
-                                        whileTap={{ scale: 0.95 }}
-                                    />
-                                </button>
+                                    <motion.div
+                                        animate={
+                                            isFlipped && !reduceMotion ? { y: [0, -10, 0] } : { y: 0 }
+                                        }
+                                        transition={
+                                            isFlipped && !reduceMotion
+                                                ? {
+                                                      repeat: Infinity,
+                                                      duration: 4,
+                                                      ease: "easeInOut",
+                                                  }
+                                                : { duration: 0 }
+                                        }
+                                    >
+                                        <Image
+                                            src="/mbti_character.webp"
+                                            alt="ISTJ-A Character"
+                                            width={208}
+                                            height={208}
+                                            sizes="(max-width: 768px) 160px, 208px"
+                                            className="w-40 md:w-52 h-auto drop-shadow-2xl select-none"
+                                        />
+                                    </motion.div>
+                                </motion.button>
                             </div>
                         </div>
                     </motion.div>

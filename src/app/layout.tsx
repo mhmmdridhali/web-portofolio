@@ -5,6 +5,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Particles } from "@/components/AerosolBackground";
 import { MusicCornerWidget } from "@/components/ui/music-player-widget";
+import { getRootGraphJsonLd } from "@/lib/structured-data";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,6 +22,9 @@ export const metadata: Metadata = {
     "Portfolio of Muhammad Ali Ridho: Statistician, Tech Enthusiast, and Writer.",
   alternates: {
     canonical: "/",
+    types: {
+      "text/markdown": "/llms.txt",
+    },
   },
   openGraph: {
     title: "Muhammad Ali Ridho | Portfolio",
@@ -49,19 +53,7 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Muhammad Ali Ridho",
-  url: "https://muhammadaliridho.my.id",
-  jobTitle: "Statistician",
-  sameAs: [
-    "https://github.com/mhmmdridhali",
-    "https://medium.com/@mhmmdaliridh",
-    "https://linkedin.com/in/muhammad-ali-ridho",
-    "https://www.instagram.com/mhmmdridhali",
-  ],
-};
+const rootGraphJsonLd = getRootGraphJsonLd();
 
 export default function RootLayout({
   children,
@@ -76,7 +68,7 @@ export default function RootLayout({
       >
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(rootGraphJsonLd) }}
         />
         <Particles
           className="fixed inset-0 z-[-1]"

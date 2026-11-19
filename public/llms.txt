@@ -1,0 +1,42 @@
+# Muhammad Ali Ridho
+
+> Portfolio of Muhammad Ali Ridho — Statistician in the government sector, practical workflow automation builder, and writer based in South Kalimantan, Indonesia. Philosophy: "Less manual work, zero server bills, and tools people actually use."
+
+Muhammad Ali Ridho holds a B.Ed. in Mathematics from Universitas Lambung Mangkurat (2019–2024). In his current role as a government-sector Statistician, he manages and analyzes education data workflows (EMIS, Verval PD, PDUM, TKA) across 20 districts and builds zero-server-cost internal portals, dashboards, and automation pipelines inside tools staff already use every day.
+
+## Pages
+
+- [Home](https://muhammadaliridho.my.id/): Overview of Muhammad Ali Ridho, philosophy, career highlights, selected projects, and recent Medium articles.
+- [About](https://muhammadaliridho.my.id/about): Background, Mathematics education, ISTJ-A ("The Logistician") profile, workflow principles, and 16-tool technical stack.
+- [Experience](https://muhammadaliridho.my.id/experience): Career timeline across government sector data automation, Yayasan Hasnur Centre (HAFECS), Marbelika, and KSI Ulul Albab.
+- [Portfolio](https://muhammadaliridho.my.id/portfolio): Case studies for 16 production systems built across Google Apps Script, Python automation, Next.js, Multi-Agent orchestration, and Obsidian.
+- [Articles](https://muhammadaliridho.my.id/articles): Essays and reflections synced from Medium (@mhmmdaliridh).
+
+## Core Expertise
+
+- **Zero-Cost Operational Web Apps**: Building internal reporting portals, verifier workspaces, and compliance surveys directly on Google Apps Script, Google Sheets, and Google Drive API (`SI-PRIMA`, `SI-PELITA`, `SI-PERKAS`, `Survei IKM`, `Monitor BAP EMIS`).
+- **Statistical & Education Data Workflows**: Large-scale EMIS API synchronization, NPSN/NSM reconciliation across 20 districts, and Looker Studio analytics dashboards.
+- **Browser & Document Automation**: Automating repetitive national web portal tasks and multi-step PDF/Excel pipelines using Python (Playwright, Selenium, OpenPyXL).
+- **AI Multi-Agent & Second Brain Systems**: Designing role-based multi-agent orchestration (`Minerva` on Hermes Agent) paired two-way with a structured 270+ note Obsidian knowledge vault.
+- **Modern Web Development**: Shipping fast, responsive full-stack web apps with Next.js 16, TypeScript, Tailwind CSS, and Supabase.
+
+## Highlighted Projects
+
+- **SI-PRIMA**: 5-view Google Apps Script & Sheets achievement tracking portal across 20 districts (`https://s.id/SI-PRIMA`).
+- **Monitor BAP EMIS & WhatsApp Recap Generator**: Live EMIS REST API synchronization into Google Sheets with 1-click WhatsApp recap generation.
+- **Public Satisfaction Survey / IKM System**: PermenPANRB 14/2017 compliant 9-element survey app with automatic NRR, IKM, and Mutu A–D scoring.
+- **Hermes Multi-Agent Ecosystem ("Minerva")**: Lead orchestrator with 6 specialized role agents, 9+ daily cron automations, and Telegram Forum Topics routing.
+- **Obsidian Second Brain & AI Agent Memory Vault**: "One Vault, Two Views" Markdown knowledge system synced via Syncthing and hourly GitHub backups (270+ notes).
+- **Penmadbanjar.com**: SSR Next.js 16 + TypeScript education portal and CMS built in a team (`https://penmadbanjar.com`).
+- **Taskly**: Personal Neobrutalism to-do list and Kanban workspace built with Next.js, Supabase Realtime, and Google OAuth (`https://taskly.muhammadaliridho.my.id`).
+
+## Profiles
+
+- [GitHub](https://github.com/mhmmdridhali)
+- [Medium](https://medium.com/@mhmmdaliridh)
+- [LinkedIn](https://linkedin.com/in/muhammad-ali-ridho)
+- [Instagram](https://www.instagram.com/mhmmdridhali)
+
+## Optional
+
+- [Full Portfolio Knowledge Base](https://muhammadaliridho.my.id/llms-full.txt): Detailed Markdown reference containing full career achievements, tech stack, and challenge/solution architecture breakdowns for all 16 portfolio projects.

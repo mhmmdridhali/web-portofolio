@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
 import Link from "next/link";
 import { PenLine } from "lucide-react";
+import type { MediumItem } from "@/lib/medium";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 24 },
@@ -171,42 +172,48 @@ function MarqueeTrack({ articles }: { articles: MediumArticle[] }) {
     );
 }
 
+const ARTICLE_DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+});
+
+function formatArticleDate(pubDate: string): string {
+    const parsed = new Date(pubDate);
+    if (Number.isNaN(parsed.getTime())) return pubDate;
+    return ARTICLE_DATE_FORMATTER.format(parsed);
+}
+
+function mapMediumItems(items: MediumItem[]): MediumArticle[] {
+    return items.slice(0, 8).map((item) => ({
+        title: item.title,
+        link: item.link,
+        thumbnail: extractThumbnail(item.thumbnail, item.description || ""),
+        pubDate: formatArticleDate(item.pubDate),
+        categories: item.categories || [],
+    }));
+}
+
 /* ─── Main Articles Component ─── */
-export default function Articles() {
-    const [articles, setArticles] = useState<MediumArticle[]>([]);
-    const [loading, setLoading] = useState(true);
+export default function Articles({
+    initialArticles = [],
+}: {
+    initialArticles?: MediumItem[];
+}) {
+    const [articles, setArticles] = useState<MediumArticle[]>(() =>
+        mapMediumItems(initialArticles)
+    );
+    const [loading, setLoading] = useState(initialArticles.length === 0);
     const [error, setError] = useState(false);
 
     useEffect(() => {
+        if (initialArticles.length > 0) return;
+
         fetch("/api/medium")
             .then((res) => res.json())
             .then((data) => {
                 if (data.status === "ok" && data.recent) {
-                    const mapped: MediumArticle[] = data.recent
-                        .slice(0, 8)
-                        .map(
-                            (item: {
-                                title: string;
-                                link: string;
-                                thumbnail: string;
-                                description: string;
-                                pubDate: string;
-                                categories: string[];
-                            }) => ({
-                                title: item.title,
-                                link: item.link,
-                                thumbnail: extractThumbnail(
-                                    item.thumbnail,
-                                    item.description || ""
-                                ),
-                                pubDate: new Date(item.pubDate).toLocaleDateString(
-                                    "en-US",
-                                    { month: "short", year: "numeric" }
-                                ),
-                                categories: item.categories || [],
-                            })
-                        );
-                    setArticles(mapped);
+                    setArticles(mapMediumItems(data.recent));
                 } else {
                     setError(true);
                 }
@@ -216,7 +223,7 @@ export default function Articles() {
                 setError(true);
                 setLoading(false);
             });
-    }, []);
+    }, [initialArticles.length]);
 
     return (
         <section className="py-24 px-4 md:px-6 max-w-6xl mx-auto overflow-hidden">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getAboutPageJsonLd } from "@/lib/structured-data";
 import AboutPageClient from "./AboutPageClient";
 
 export const metadata: Metadata = {
@@ -24,5 +25,14 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-    return <AboutPageClient />;
+    const jsonLd = getAboutPageJsonLd();
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <AboutPageClient />
+        </>
+    );
 }

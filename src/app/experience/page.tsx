@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getExperiencePageJsonLd } from "@/lib/structured-data";
 import ExperiencePageClient from "./ExperiencePageClient";
 
 export const metadata: Metadata = {
@@ -24,5 +25,14 @@ export const metadata: Metadata = {
 };
 
 export default function ExperiencePage() {
-    return <ExperiencePageClient />;
+    const jsonLd = getExperiencePageJsonLd();
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <ExperiencePageClient />
+        </>
+    );
 }

@@ -79,7 +79,7 @@ export default function ExperiencePageClient() {
 
             {/* Interactive Timeline */}
             <section className="max-w-6xl mx-auto px-6 mb-20">
-                <ExperienceTimeline variant="full" />
+                <ExperienceTimeline variant="full" headingLevel="h2" />
             </section>
 
             {/* CTA */}

@@ -7,6 +7,7 @@ import { experiences, type ExperienceItem } from "@/data/experience";
 export interface ExperienceTimelineProps {
     items?: ExperienceItem[];
     variant?: "compact" | "full";
+    headingLevel?: "h2" | "h3";
     className?: string;
 }
 
@@ -22,8 +23,10 @@ const cardFadeUp = {
 export default function ExperienceTimeline({
     items = experiences,
     variant = "full",
+    headingLevel = "h3",
     className = "",
 }: ExperienceTimelineProps) {
+    const HeadingTag = headingLevel;
     const containerRef = React.useRef<HTMLDivElement>(null);
 
     const { scrollYProgress } = useScroll({
@@ -134,7 +137,7 @@ export default function ExperienceTimeline({
                                         : "bg-white/85 backdrop-blur-md border border-white/60 shadow-lg hover:shadow-xl"
                                 }`}
                             >
-                                <h4
+                                <HeadingTag
                                     className={`font-bold mb-1.5 ${
                                         variant === "compact"
                                             ? "text-xl md:text-2xl"
@@ -142,7 +145,7 @@ export default function ExperienceTimeline({
                                     } ${exp.isCurrent ? "text-white" : "text-black"}`}
                                 >
                                     {exp.title}
-                                </h4>
+                                </HeadingTag>
                                 <p
                                     className={`font-medium mb-4 ${
                                         variant === "compact"

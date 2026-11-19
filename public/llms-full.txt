@@ -1,0 +1,150 @@
+# Muhammad Ali Ridho — Full Portfolio Knowledge Base
+
+> Portfolio of Muhammad Ali Ridho — Statistician (Government Sector), Tech Enthusiast, and Writer based in South Kalimantan, Indonesia. Philosophy: "Less manual work, zero server bills, and tools people actually use."
+
+Canonical URL: https://muhammadaliridho.my.id
+
+---
+
+## 1. Profile & Philosophy
+
+- **Name**: Muhammad Ali Ridho
+- **Role**: Statistician (Government Sector)
+- **Location**: South Kalimantan, Indonesia
+- **Education**: B.Ed. in Mathematics, Universitas Lambung Mangkurat (2019–2024)
+- **Personality Profile**: ISTJ-A ("The Logistician")
+- **Core Philosophy**: "Less manual work, zero server bills, and tools people actually use."
+- **Focus Areas**: Managing and analyzing education data workflows (EMIS, Verval PD, PDUM, TKA) across 20 districts; replacing scattered spreadsheets and manual portal work with practical Google Apps Script applications, Python browser automation, full-stack Next.js portals, and local/cloud AI agent workflows synced with Obsidian.
+
+### Official Links
+- Portfolio: https://muhammadaliridho.my.id
+- GitHub: https://github.com/mhmmdridhali
+- Medium: https://medium.com/@mhmmdaliridh
+- LinkedIn: https://linkedin.com/in/muhammad-ali-ridho
+- Instagram: https://www.instagram.com/mhmmdridhali
+- Concise Summary: https://muhammadaliridho.my.id/llms.txt
+
+---
+
+## 2. Career & Leadership Experience
+
+### 1. Statistician — Government Sector (2025 – Present, Professional)
+Managing and analyzing education data (EMIS, Verval PD, PDUM, TKA) across 20 districts. Builds zero-infrastructure operational tools primarily using Google Apps Script and Google Workspace so they cost nothing to run and live inside spreadsheets and Drive folders that staff and school operators already use every day.
+- Built 10+ Google Apps Script web apps and dashboards (SI-PRIMA, SI-PELITA, SI-PERKAS, Monitor BAP EMIS, Humas Award) running on Google Sheets and Drive with zero hosting bills.
+- Wrote Python browser automation scripts (Selenium and Playwright) for repetitive national portal tasks, including 1-by-1 Electronic Signature (TTE) uploads and EMIS Special Needs (BKH) student checks.
+- Set up a personal Hermes Multi-Agent system ("Minerva") synced 2-way with an Obsidian vault for daily cron jobs, official LPD report drafting, and research.
+- Cleaned up NSM/NPSN reconciliation and school reporting workflows across 20 districts, cutting manual recapitulation time by roughly 80%.
+- **Tools**: Google Apps Script, Google Workspace, Python Automation, Hermes Agent, Obsidian, Data Reconciliation.
+
+### 2. Project Officer Intern — Yayasan Hasnur Centre - HAFECS (Feb 2023 – Jun 2023, Internship)
+Helped run 5 educational programs, managed schedules and work plans, and coordinated day-to-day communication for more than 600 participants and partners.
+- Handled logistics and timelines for 5 concurrent training programs.
+- Coordinated with 600+ participants, speakers, and partner institutions.
+- Built shared work plans and progress trackers for the program team.
+- **Tools**: Project Management, Stakeholder Communication, Scheduling, Reporting.
+
+### 3. Online Tutor — Marbelika (Academic Year 2022 – 2023, Teaching)
+Taught live online mathematics classes, wrote step-by-step worksheets and practice sets, and adapted pacing to help students solve problems independently.
+- **Tools**: Mathematics, Online Teaching, Curriculum Design, Student Assessment.
+
+### 4. Head / Leader — KSI Ulul Albab (Mar 2022 – Feb 2023, Organization)
+Led more than 50 active student members across 6 operational divisions, planned 12+ annual campus and community programs, and partnered with 10+ organizations.
+- **Tools**: Leadership, Strategic Planning, Team Management, Partnership Development.
+
+### Summary Metrics
+- `15+` GAS & Automation Tools Built
+- `600+` Stakeholders Coordinated
+- `20` Districts Covered
+- `80%` Manual Work Reduced
+
+---
+
+## 3. Technical Stack (16 Core Tools)
+
+- **Automation & Workspace**: Google Apps Script, Google Workspace, Microsoft Office
+- **Scripting, AI & Knowledge Systems**: Python, Hermes Agent, Obsidian, Ubuntu
+- **Web, Data & Deployment**: MySQL, JavaScript, TypeScript, Next.js, Tailwind CSS, REST API, Postman, Git & GitHub, Vercel
+
+---
+
+## 4. Portfolio Case Studies (16 Production Systems)
+
+### 1. SI-PRIMA (Madrasah Achievement Information System)
+- **Category**: Individual | **Live**: https://s.id/SI-PRIMA
+- **Stack**: Google Apps Script, Google Sheets, Tailwind CSS, Chart.js
+- **Summary**: 5-view Apps Script web portal (Public Dashboard, School Report Cards, Submission Form, User Guide, Admin Verifier Workspace) backed by Google Sheets to collect and verify student, teacher, and school achievements across 20 districts (RA, MI, MTs, MA). Replaces scattered chat submissions and manual spreadsheet sorting.
+
+### 2. Monitor BAP EMIS & WhatsApp Recap Generator
+- **Category**: Individual | **Live**: https://script.google.com/macros/s/AKfycbz9ONqfDtu3jVpZkULljnSBHbFZV2zWHylQYxwtxJ0G7rzm1ipcoI6gtZUQMmB7ktmJYQ/exec
+- **Stack**: Google Apps Script, EMIS REST API, Google Sheets, Tailwind CSS
+- **Summary**: Synchronizes live EMIS Berita Acara Pendataan (BAP) status via Bearer token into structured Google Sheets and generates 1-click formatted WhatsApp progress recaps per district.
+
+### 3. Public Satisfaction Survey / IKM System (PermenPANRB 14/2017)
+- **Category**: Individual | **Live**: https://script.google.com/macros/s/AKfycbxtZkgTEbXRTlupW5pAxUOKjLIRt_fQ2IS6Fb4x_WNEvlSP9hRAWDDRUADKgdmlOJww/exec
+- **Stack**: Google Apps Script, Google Sheets, HTML/CSS/JS
+- **Summary**: Service quality survey implementing the 9 official PermenPANRB 14/2017 elements (U1–U9), featuring kiosk submission mode, an admin analytics dashboard, and automated NRR, IKM index, and Mutu (A–D) calculations.
+
+### 4. Hermes Multi-Agent Ecosystem ("Minerva")
+- **Category**: Individual
+- **Stack**: Hermes Agent, Python, Google Workspace, Telegram API, Cron
+- **Summary**: Personal AI multi-agent system built around a Lead Orchestrator ("Minerva") delegating across 6 specialized role agents (Coder, DocuHelper, Researcher, Writer, Finance, Health), running 9+ daily scheduled crons and routing workflows through Telegram Forum Topics.
+
+### 5. Obsidian Second Brain & AI Agent Memory Vault
+- **Category**: Individual
+- **Stack**: Obsidian, Syncthing, Git, Python, YAML Taxonomy
+- **Summary**: "One Vault, Two Views" Markdown knowledge architecture connecting 270+ structured notes synced real-time between a Windows laptop and a Linux VPS via Syncthing, backed up hourly to GitHub, and summarized by weekly Python recap scripts.
+
+### 6. Kemenag Browser Automation Suite (Ajuan TTE & EMIS BKH)
+- **Category**: Individual
+- **Stack**: Python, Playwright, Selenium, OpenPyXL
+- **Summary**: Headless/browser automation scripts handling batch PDF uploads to the electronic signature portal (`tte.kemenag.go.id`) and automated student NISN / special-needs (BKH) lookups on EMIS with stateful Excel logging and auto-resume after interruptions.
+
+### 7. Penmadbanjar.com (Madrasah Education Web Portal)
+- **Category**: Team | **Live**: https://penmadbanjar.com
+- **Stack**: Next.js 16, TypeScript, Tailwind CSS
+- **Summary**: Server-rendered public madrasah education web portal and admin CMS engineered for fast delivery (`<130 kB` initial JS bundle).
+
+### 8. Humas Award Penmad 2026
+- **Category**: Individual | **Live**: https://script.google.com/macros/s/AKfycbwxZQG-NSWwwy1PMOgBXFeSTumyXBlo79sz_OdS0enRI9_NrjFk1UKZoXG3Bdjo68_B8Q/exec
+- **Stack**: Google Apps Script, Google Sheets, Tailwind CSS, Chart.js
+- **Summary**: Multi-link publication submission system with server-side duplicate URL blocking and a live statistical leaderboard.
+
+### 9. Inventory & Loan System — RSISA ICU Banjarbaru
+- **Category**: Individual | **Live**: https://script.google.com/macros/s/AKfycbwLjJjFmtVY1TOIjEaTuTlifCXgCq6NwqPALjCSHgvDcrhcv6PFwMJITdginwd-Xfc8/exec
+- **Stack**: Google Apps Script, Google Sheets, Tailwind CSS
+- **Summary**: Hospital ICU medical device inventory tracker and loan/overdue return ledger built for quick zero-maintenance ward operation.
+
+### 10. Taskly (Personal To-Do List App)
+- **Category**: Individual | **Live**: https://taskly.muhammadaliridho.my.id
+- **Stack**: Next.js, Supabase, Tailwind CSS
+- **Summary**: Personal Neobrutalism task workspace supporting list and Kanban views, a live Supabase Realtime active user counter, and Google OAuth PKCE authentication.
+
+### 11. EMIS Student Data Automation
+- **Category**: Individual
+- **Stack**: Google Apps Script, Google Sheets, REST API
+- **Summary**: Automated paginated REST API extraction via `UrlFetchApp` writing 14 standardized student data fields directly into `'NPSN - Nama Lembaga'` spreadsheet tabs.
+
+### 12. SI-PELITA (Information and Data Reporting System)
+- **Category**: Individual | **Live**: https://s.id/SIPELITA
+- **Stack**: Google Apps Script, Google Sheets, Google Drive API, Bootstrap
+- **Summary**: Structured helpdesk ticketing portal for EMIS and VervalPD requests that automatically routes uploaded PDF supporting documents into categorized Google Drive folders.
+
+### 13. ICU RSISA Leave Monitoring System
+- **Category**: Individual | **Live**: https://s.id/Cuti2026
+- **Stack**: Google Apps Script, Google Sheets, HTML/CSS/JS, SweetAlert2
+- **Summary**: Clinical staff leave planner with automated shift-conflict detection, interactive calendar view, and annual leave quota calculation.
+
+### 14. Pojok Statistik Madrasah
+- **Category**: Individual | **Live**: https://lookerstudio.google.com/u/0/reporting/0ea71311-8249-426c-9d96-067c1c282713/page/YOWYF
+- **Stack**: Google Sheets, Looker Studio, EMIS Data
+- **Summary**: Interactive public statistics dashboard and filterable NSM school directory for madrasah education indicators.
+
+### 15. Madrasah Profile & Principal Contact System
+- **Category**: Individual | **Live**: https://s.id/ProfilLembagaKabBanjar
+- **Stack**: Google Apps Script, Google Sheets, Bootstrap 5
+- **Summary**: Institutional profile directory featuring NPSN/NSM auto-fill lookup and a `normalizePhone_` utility for standardized WhatsApp contact links.
+
+### 16. SI-PERKAS (Teacher Allowance Filing System)
+- **Category**: Individual | **Live**: https://s.id/SIPERKAS
+- **Stack**: Google Apps Script, Google Sheets, Google Drive API, Bootstrap 5, Chart.js
+- **Summary**: TPG teacher allowance filing portal supporting 10 MB PDF uploads, automated Drive folder archiving, verifier review dashboards, and structured Excel export.

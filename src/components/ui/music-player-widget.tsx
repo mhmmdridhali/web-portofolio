@@ -19,6 +19,11 @@ import {
 } from "lucide-react";
 import { CURATED_PLAYLISTS, type CuratedPlaylist } from "@/data/playlists";
 
+function resizeArtworkUrl(url: string, size: number): string {
+  if (!url) return url;
+  return url.replace(/\/\d+x\d+bb\.(jpg|png|webp)$/i, `/${size}x${size}bb.$1`);
+}
+
 /* ----------------------------------------------------------------- types */
 
 export interface Track {
@@ -291,9 +296,15 @@ function useAudioPlayer(tracks: Track[]) {
   const toggle = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
+    if (!audio.getAttribute("src")) {
+      const target = tracks[state.currentIndex] || tracks[0];
+      if (!target?.src) return;
+      audio.src = target.src;
+      audio.load();
+    }
     if (audio.paused) audio.play().catch(() => {});
     else audio.pause();
-  }, []);
+  }, [tracks, state.currentIndex]);
 
   // `autoplay` is explicit because once a track ends the browser marks the
   // audio as paused, so `!audio.paused` would wrongly stop the queue.
@@ -432,7 +443,7 @@ function useAudioPlayer(tracks: Track[]) {
       return;
     }
 
-    const wasPlaying = !audio.paused;
+    const wasPlaying = !audio.paused && Boolean(audio.getAttribute("src"));
     const startIndex = state.shuffled
       ? Math.floor(Math.random() * tracks.length)
       : 0;
@@ -441,10 +452,14 @@ function useAudioPlayer(tracks: Track[]) {
       trackCount: tracks.length,
       startIndex,
     });
-    audio.src = tracks[startIndex].src;
-    audio.load();
     if (wasPlaying) {
+      audio.src = tracks[startIndex].src;
+      audio.load();
       audio.play().catch(() => {});
+    } else if (audio.getAttribute("src")) {
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tracks]);
@@ -754,8 +769,11 @@ function Disc({
             // eslint-disable-next-line @next/next/no-img-element
             <img
               key={l.id}
-              src={l.track.cover}
+              src={resizeArtworkUrl(l.track.cover, 300)}
               alt={`${l.track.title} — ${l.track.artist}`}
+              width={200}
+              height={200}
+              decoding="async"
               className={cls}
               draggable={false}
             />
@@ -1139,7 +1157,7 @@ export function MusicPlayer({
       shortcutsEnabled={shortcutsEnabled}
       active={active}
     >
-      <audio ref={audioRef} preload="metadata" crossOrigin={crossOrigin} />
+      <audio ref={audioRef} preload="none" crossOrigin={crossOrigin} />
     </MusicPlayerBody>
   );
 }
@@ -1170,6 +1188,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
     ranum: CURATED_PLAYLISTS[1].tracks,
   }));
   const [isExpanded, setIsExpanded] = useState(false);
+  const [hasOpened, setHasOpened] = useState(false);
   const [showQueue, setShowQueue] = useState(false);
 
   const tracks = tracksByPlaylist[activePlaylist.key] || activePlaylist.tracks;
@@ -1301,7 +1320,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
       {/* Persistent Audio Element so playback never interrupts on collapse/expand */}
       <audio
         ref={audioRef}
-        preload="metadata"
+        preload="none"
         crossOrigin="anonymous"
       />
 
@@ -1393,12 +1412,15 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
         </div>
 
         {/* 21st.dev Vinyl & ScalesMixer Audio Player */}
-        {!currentTrack && (
+        {hasOpened && !currentTrack && (
           <div className="flex items-center gap-3 px-4 py-6" role="status">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={activePlaylist.playlistCover}
               alt=""
+              width={64}
+              height={64}
+              decoding="async"
               className="w-16 h-16 rounded-2xl object-cover"
             />
             <div className="min-w-0">
@@ -1409,7 +1431,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
             </div>
           </div>
         )}
-        {currentTrack && <MusicPlayerBody
+        {hasOpened && currentTrack && <MusicPlayerBody
           tracks={tracks}
           state={state}
           currentTrack={currentTrack}
@@ -1446,8 +1468,12 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={t.cover}
+                    src={resizeArtworkUrl(t.cover, 100)}
                     alt={t.title}
+                    width={32}
+                    height={32}
+                    loading="lazy"
+                    decoding="async"
                     className="w-8 h-8 rounded-lg object-cover shrink-0"
                   />
                   <div className="min-w-0 flex-1">
@@ -1492,30 +1518,30 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
         {/* Expand trigger (sibling of play button, not nested) */}
         <button
           type="button"
-          onClick={() => setIsExpanded(true)}
-          aria-label="Expand Music Corner player"
+          onClick={() => {
+            setHasOpened(true);
+            setIsExpanded(true);
+          }}
           className="flex flex-1 min-w-0 min-h-[44px] items-center gap-2.5 p-1.5 pl-1.5 rounded-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
         >
           {/* Spinning Mini Vinyl Thumbnail */}
-          <span className="relative block w-10 h-10 rounded-full overflow-hidden bg-black shrink-0 shadow-md">
+          <span className="relative flex items-center justify-center w-10 h-10 rounded-full overflow-hidden bg-black shrink-0 shadow-md">
             {currentTrack?.cover ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={currentTrack.cover}
+                src={resizeArtworkUrl(currentTrack.cover, 100)}
                 alt=""
+                width={40}
+                height={40}
+                decoding="async"
                 className={`w-full h-full object-cover ${
                   state.isPlaying ? "animate-spin" : ""
                 }`}
                 style={{ animationDuration: "6s" }}
               />
-            ) : activePlaylist.playlistCover ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={activePlaylist.playlistCover}
-                alt=""
-                className="w-full h-full object-cover"
-              />
-            ) : null}
+            ) : (
+              <Disc3 className="w-5 h-5 text-neutral-400" aria-hidden="true" />
+            )}
             <span className="absolute inset-0 m-auto w-2.5 h-2.5 rounded-full bg-white border border-black/40" />
           </span>
 
@@ -1527,6 +1553,7 @@ export function MusicCornerWidget({ playlistUrl }: MusicCornerWidgetProps) {
             <span className="block text-xs font-bold text-black truncate leading-tight">
               {currentTrack?.title ?? "Loading…"}
             </span>
+            <span className="sr-only"> — Expand Music Corner player</span>
           </span>
         </button>
 
